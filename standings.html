@@ -4,7 +4,9 @@
 </head>
 
 <body>
-    
+
+<div id="standings"></div>
+
 <script> 
         
 $.ajax({
@@ -14,7 +16,11 @@ headers: { 'X-Auth-Token': 'a0a6c9a4443e46f680b1fe4c3f5f0bb6' },
   type: 'GET',
 
 }).done(function(response) {
-    
+    var out ="";
+    for (var i =0; i<response.length; i++){
+       out += response[i].team + '<br/>';
+    }
+     document.getElementById("standings").innerHTML += out;
 }
     </script>        
 </body>
