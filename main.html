@@ -1,0 +1,84 @@
+
+<head>
+<title>premScores</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+
+
+
+<body>   
+<ul id = "navbar">
+<li><a href = "/">Scores</a></li>
+<li><a href = "/standings">Standings</a></li>
+</ul>   
+</body> 
+
+<template name="home">
+    
+    
+    <div><table style ="width:100%" id="games"><tr>
+    <th>Home Team</th>
+    <th>Score</th>
+    <th>Away Team</th>   
+  </tr></table></div>
+    
+   
+<script> 
+    
+    
+        
+$.ajax({
+headers: { 'X-Auth-Token': 'a0a6c9a4443e46f680b1fe4c3f5f0bb6' },
+  url: 'http://api.football-data.org/v1/soccerseasons/426/fixtures',
+  dataType: 'JSON',
+  type: 'GET',
+
+}).done(function(response) {
+    var games = response.fixtures;
+    var out = "";
+    for (var i=0; i<games.length; i++){
+        
+        if (games[i].status == "FINISHED" || games[i].status == "IN_PLAY"){
+        out+= '<tr><td>' + games[i].homeTeamName +'</td> <td>' + games[i].result.goalsHomeTeam +  '-' + games[i].result.goalsAwayTeam + '</td> <td>' + games[i].awayTeamName +'</td></tr>';    
+        }
+        else{
+        out+= '<tr><td>' + games[i].homeTeamName + '</td><td>-</td><td>' + games[i].awayTeamName +'</td></tr>';
+        }
+      
+    }
+    document.getElementById("games").innerHTML += out;    
+    })</script>    
+    
+    
+</template>
+    
+<template name = 'standings'>
+    <table style="width:100%" id='standings'><tr>
+        <th>Rank</th>
+        <th></th>
+        <th>Team</th>
+        <th>Points</th>
+        </tr></table>    
+    
+<script> 
+        
+$.ajax({
+headers: { 'X-Auth-Token': 'a0a6c9a4443e46f680b1fe4c3f5f0bb6' },
+  url: 'http://api.football-data.org/v1/soccerseasons/426/leagueTable',
+  dataType: 'JSON',
+  type: 'GET',
+
+}).done(function(response) {
+  var standings = response.standing;
+    var out ="";
+    
+    for (var i=0; i<standings.length; i++){
+        out += '<tr><td>' + standings[i].position + '</td><td><img src="' + standings[i].crestURI + '"height="30px"></td><td>' + standings[i].teamName + '</td><td>' + standings[i].points + '</td></tr>';
+    
+    }    
+    document.getElementById("standings").innerHTML += out;    
+    })</script>    
+
+    
+    
+    </template>    
