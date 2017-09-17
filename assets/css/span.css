@@ -1,8 +1,56 @@
 /* Span */
 			span#paper{ 
-   				background:url("images/iconpaper.png") left top; 
-				width:16px;
-				height:16px;
-				display: block;
-				float: left;
+   				background:url("images/iconpaper.png"); 
+				background-size: contain;
+				background-repeat: no-repeat;
+				width: 100%;
+				height: 100%;
+				min-height: 90.33px;
+				max-width: 90.33px;
+				line-height: 5.5em;
+				margin: 0 0 2em 0;
+				display: inline-block;
 			}
+
+/* Span */
+			span#dif{ 
+   				background:url("images/iconpaper.png"); 
+				background-size: contain;
+				background-repeat: no-repeat;
+				width: 100%;
+				height: 100%;
+				min-height: 90.33px;
+				max-width: 90.33px;
+				line-height: 5.5em;
+				margin: 0 0 2em 0;
+				display: inline-block;
+			}
+
+/* Span */
+			span#plane{ 
+   				background:url("images/iconpaper.png"); 
+				background-size: contain;
+				background-repeat: no-repeat;
+				width: 100%;
+				height: 100%;
+				min-height: 90.33px;
+				max-width: 90.33px;
+				line-height: 5.5em;
+				margin: 0 0 2em 0;
+				display: inline-block;
+			}
+
+/* Span */
+			span#serv{ 
+   				background:url("images/iconpaper.png"); 
+				background-size: contain;
+				background-repeat: no-repeat;
+				width: 100%;
+				height: 100%;
+				min-height: 90.33px;
+				max-width: 90.33px;
+				line-height: 5.5em;
+				margin: 0 0 2em 0;
+				display: inline-block;
+			}
+
