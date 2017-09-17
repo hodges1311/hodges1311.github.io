@@ -14,7 +14,7 @@
 
 /* Span */
 			span#dif{ 
-   				background:url("images/iconpaper.png"); 
+   				background:url("images/icondif.png"); 
 				background-size: contain;
 				background-repeat: no-repeat;
 				width: 100%;
@@ -28,7 +28,7 @@
 
 /* Span */
 			span#plane{ 
-   				background:url("images/iconpaper.png"); 
+   				background:url("images/iconplane.png"); 
 				background-size: contain;
 				background-repeat: no-repeat;
 				width: 100%;
@@ -42,7 +42,7 @@
 
 /* Span */
 			span#serv{ 
-   				background:url("images/iconpaper.png"); 
+   				background:url("images/iconserv.png"); 
 				background-size: contain;
 				background-repeat: no-repeat;
 				width: 100%;
