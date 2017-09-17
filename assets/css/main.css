@@ -3120,6 +3120,17 @@
 		margin-top: -14em;
 	}
 
+/* Span */
+
+			#paper{ 
+   				background:url("images/iconpaper.png") left top; 
+   				width:16px; 
+   				height:16px;
+   				display: block;
+   				float: left;
+			}
+
+
 /* Footer */
 
 	#footer {
@@ -3750,14 +3761,6 @@
 
 			#main > .box:first-child {
 				margin-top: 0;
-			}
-		
-			#paper{ 
-   				background:url(images/iconpaper.png) left top; 
-   				width:16px; 
-   				height:16px;
-   				display: block;
-   				float: left;
 			}
 
 		/* CTA */
