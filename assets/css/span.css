@@ -1,8 +1,8 @@
 /* Span */
 			#paper span{ 
    				background:url("images/iconpaper.png") left top; 
-   				width:95.33px; 
-   				height:95.33px;
+   				width:95px; 
+   				height:95px;
    				display: block;
    				float: left;
 			}
