@@ -1,174 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>FlyBy</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/span.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	
+<!-- Banner -->
+	<section id="banner">
+		<h2>Sign Up!</h2>
+		<p>Join our flying community!</p>
+	</section>
+	
+	<body class="landing">
+		<div id="page-wrapper">
 
-<form action="#" method="post">
-  <h2>Sign Up</h2>
-		<p>
-			<label for="Email" class="floatLabel">Email</label>
-			<input id="Email" name="Email" type="text">
-		</p>
-		<p>
-			<label for="password" class="floatLabel">Password</label>
-			<input id="password" name="password" type="password">
-			<span>Enter a password longer than 8 characters</span>
-		</p>
-		<p>
-			<label for="confirm_password" class="floatLabel">Confirm Password</label>
-			<input id="confirm_password" name="confirm_password" type="password">
-			<span>Your passwords do not match</span>
-		</p>
-		<p>
-			<input type="submit" value="Create My Account" id="submit">
-		</p>
-	</form>
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="index.html">FlyBy</h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li>
+								<a href="about.html">About Us</a>
+							</li>
+							<li><a href="login.html" class="button">Log In</a></li>
+							<li><a href="#" class="button">Sign Up</a></li>
+						</ul>
+					</nav>
+				</header>
 
-<style>
-  @import "compass/css3";
 
-$button: rgba(148,186,101,0.7);
+			<!-- Main -->
+				<div>
+				<section class="container">
 
-body {
-  background: #384047;
-  font-family: sans-serif;
-  font-size: 10px
-}
-form {
-  background: #fff;
-  padding: 4em 4em 2em;
-  max-width: 400px;
-  margin: 50px auto 0;
-  box-shadow: 0 0 1em #222;
-  border-radius: 2px;
-  h2 {
-    margin:0 0 50px 0;
-    padding:10px;
-    text-align:center;
-    font-size:30px;
-    color:darken(#e5e5e5, 50%);
-    border-bottom:solid 1px #e5e5e5;
-  }
-  p {
-    margin: 0 0 3em 0;
-    position: relative;
-  }
-  input {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    outline: none;
-    margin:0;
-  }
-  input[type="text"],
-  input[type="password"] {
-    background: #fff;
-    border: 1px solid #dbdbdb;
-    font-size: 1.6em;
-    padding: .8em .5em;
-    border-radius: 2px;
-  }
-  input[type="text"]:focus,
-  input[type="password"]:focus {
-    background: #fff
-  }
-  span {
-    display:block;
-    background: #F9A5A5;
-    padding: 2px 5px;
-    color: #666;
-  }
-  input[type="submit"] {
-    background: $button;
-    box-shadow: 0 3px 0 0 darken($button, 10%);
-    border-radius: 2px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    display: block;
-    font-size: 2em;
-    line-height: 1.6em;
-    margin: 2em 0 0;
-    outline: none;
-    padding: .8em 0;
-    text-shadow: 0 1px #68B25B;
-  }
-  input[type="submit"]:hover {
-    background: rgba(148,175,101,1);
-    text-shadow:0 1px 3px darken($button, 30%);
-  }
-  input[type="submit"]:hover {
-    
-  }
-  label{
-    position: absolute;
-    left: 8px;
-    top: 12px;
-    color: #999;
-    font-size: 16px;
-    display: inline-block;
-    padding: 4px 10px;
-    font-weight: 400;
-    background-color: rgba(255,255,255,0);
-    @include transition(color .3s, top .3s, background-color .8s);
-    &.floatLabel{
-      top: -11px;
-      background-color: rgba(255,255,255,0.8);
-      font-size: 14px;
-    }
-	}
-  
-}
-</style>
+					<section class="box special">
+						<header class="major">
+							<h2>Sign Up
+							</h2>
+							<div class="8u 12u(mobilep)">
+								<input type="email" name="email" id="email" placeholder="Email Address">
+							</div>
+							<div class="8u 12u(mobilep)">
+								<input type="password" name="password" id="password" placeholder="Password">
+							</div>
+							<div class="8u 12u(mobilep)">
+								<input type="confirmPW" name="confirmPW" id="confirmPW" placeholder="Confirm Password">
+							</div>
+							<input type="submit" value="Sign Up" class="fit">
+						</header>
+						<span class="image featured">
+							<span>
+								<img class="resize" style="display: inline-block;" src="images/plane1.jpg" alt="">
+							</span>
+						</span>
+					</section>
+				</div>
+				<div>
+				</div>
 
-<script>
-  //Problem: Hints are shown even when form is valid
-//Solution: Hide and show them at appropriate times
-var $password = $("#password");
-var $confirmPassword = $("#confirm_password");
+				<div>
+				</div>	
+			<!-- CTA -->
+				<section id="cta" style="padding: 1em 0 1em 0;">
 
-//Hide hints
-$("form span").hide();
+					<h2 style="margin: 0 0 0 0;">Sign up Here!</h2>
+					<p style="margin: 0 0 1em 0;">Join our flying community.</p>
 
-function isPasswordValid() {
-  return $password.val().length > 8;
-}
+					<form>
+						<ul class="actions">
+							<li><a href="signup.html" class="button">Sign Up!</a></li>
+						</ul>
+					</form>
 
-function arePasswordsMatching() {
-  return $password.val() === $confirmPassword.val();
-}
+				</section>
+					
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="copyright">
+						<li>&copy; All rights reserved.</li>
+					</ul>
+				</footer>
 
-function canSubmit() {
-  return isPasswordValid() && arePasswordsMatching();
-}
+		</div>
 
-function passwordEvent(){
-    //Find out if password is valid  
-    if(isPasswordValid()) {
-      //Hide hint if valid
-      $password.next().hide();
-    } else {
-      //else show hint
-      $password.next().show();
-    }
-}
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
 
-function confirmPasswordEvent() {
-  //Find out if password and confirmation match
-  if(arePasswordsMatching()) {
-    //Hide hint if match
-    $confirmPassword.next().hide();
-  } else {
-    //else show hint 
-    $confirmPassword.next().show();
-  }
-}
-
-function enableSubmitEvent() {
-  $("#submit").prop("disabled", !canSubmit());
-}
-
-//When event happens on password input
-$password.focus(passwordEvent).keyup(passwordEvent).keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
-
-//When event happens on confirmation input
-$confirmPassword.focus(confirmPasswordEvent).keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
-
-enableSubmitEvent();
-</script>
+	</body>
+</html>
