@@ -44,6 +44,21 @@
 				</header>
 					<div class="box">
 						<form method="post" action="#">
+							<?php
+							$name = $email = $password = "";
+							//Grab the variables from the post array
+							if($_SERVER("REQUEST_METHOD") == "POST"){
+								$name = sanitize($_POST["name"]);
+								$email = sanitize($_POST["email"]);
+								$password = sanitize($_POST["email"]);
+							}
+							//This is hopefully prevent XSS
+							function sanitize($input){
+								$input = htmlspecialchars($input);
+								$input = trim($input);
+								$input = stripslashes($input);
+							}
+							?>
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
 									<input type="text" name="name" id="name" value="" placeholder="Name">
