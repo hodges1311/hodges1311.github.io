@@ -18,8 +18,8 @@
 <!-- Banner -->
 	<body>
 	<?php
-	$nameErr = $emailErr = $userErr = $addErr = $passErr = "";
-	$name = $email = $user = $add = $city = $zip = $pass = $passc = "";
+	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
+	$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
@@ -32,7 +32,7 @@
 			$name = test_input($_POST["name"]);
 			if (!preg_match("/^[a-zA-Z ]*$/",$name)) 
 			{
-				$nameErr = "Only letters and white space allowed"; 
+				$nameErr = "Only letters and white space allowed for Name"; 
 			}
 		}
 		
@@ -46,6 +46,75 @@
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
 			{
 				$emailErr = "Invalid email format"; 
+			}
+		}
+		
+		if(empty($_POST["zip"]))
+		{
+			$zipErr = "Zip-Code is Required";
+		}
+		else
+		{
+			$zip = test_input($_POST["zip"]);
+			if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) > 5) 
+			{
+				$zipErr = "Only 5 digit number allowed for Zip-Code"; 
+			}
+		}
+		
+		if(empty($_POST["city"]))
+		{
+			$cityErr = "City is Required";
+		}
+		else
+		{
+			$city = test_input($_POST["city"]);
+			if (!preg_match("/^[a-zA-Z ]*$/",$city)) 
+			{
+				$cityErr = "Only letters and white space allowed for city"; 
+			}
+		}
+		
+		if(empty($_POST["address"]))
+		{
+			$addErr = "Address is Required";
+		}
+		else
+		{
+			$add = test_input($_POST["address"]);
+			if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add)) 
+			{
+				$addErr = "Only letters, numbers, & white space allowed for address"; 
+			}
+		}
+		
+		if(empty($_POST["address"]))
+		{
+			$addErr = "Address is Required";
+		}
+		else
+		{
+			$add = test_input($_POST["address"]);
+			if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add)) 
+			{
+				$addErr = "Only letters, numbers, & white space allowed for address"; 
+			}
+		}
+		
+		if(empty($_POST["username"]))
+		{
+			$userErr = "Username Required";
+		}
+		else
+		{
+			$user = test_input($_POST["username"]);
+			if (!preg_match("/^[a-zA-Z0-9]*$/",$user)) 
+			{
+				$userErr = "Only letters & number allowed for Username"; 
+			}
+			if(strlen($user) > 20)
+			{
+				$userErr = "Username can only be 20 Characters Long";
 			}
 		}
 	}
@@ -86,66 +155,50 @@
 					<div class="box">
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
-									<input type="text" name="username" id="username" value="" placeholder="Username">
+								<div class="6u 12u(mobilep) <?php if($userErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $user?>" placeholder="Username">
+									<?php if($userErr != "") '<span class="tooltiptext">'.$userErr.'</span>';?>
 								</div>
-								<div class="6u 12u(mobilep)">
-									<input type="email" name="email" id="email" value="" placeholder="Email">
-								</div>
-							</div>
-							<div class="row uniform 50%">
-								<div class="12u">
-									<input type="text" name="name" id="name" value="" placeholder="Name">
+								<div class="6u 12u(mobilep) <?php if($emailErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email">
+									<?php if($emailErr != "") '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
-								<div class="12u">
-									<input type="text" name="address" id="address" value="" placeholder="Address">
+								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
+									<?php if($nameErr != "") '<span class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
-								<div class="6u 12u(mobilep)">
-									<input type="text" name="city" id="city" value="" placeholder="City">
-								</div>
-								<div class="6u 12u(mobilep)">
-									<input type="text" name="zip" id="zip" value="" placeholder="Zip-Code">
+								<div class="12u <?php if($addErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $add?>" placeholder="Address">
+									<?php if($addErr != "") '<span class="tooltiptext">'.$addErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
-								<div class="12u">
-									<input type="password" name="password" id="password" value="" placeholder="Password">
+								<div class="6u 12u(mobilep) <?php if($cityErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $city?>" placeholder="City">
+									<?php if($cityErr != "") '<span class="tooltiptext">'.$cityErr.'</span>';?>
+								</div>
+								<div class="6u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $zip?>" placeholder="Zip-Code">
+									<?php if($zipErr != "") echo '<span class="tooltiptext">'.$zipErr.'</span>';?>
 								</div>
 							</div>
-														<div class="row uniform 50%">
-								<div class="12u">
-									<input type="password" name="passwordC" id="passwordC" value="" placeholder="Confirm Password">
+							<div class="row uniform 50%">
+								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="password" id="password" value="" placeholder="Password">
+									<?php if($passErr != "") '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
-							<p>
-								*All Fields Required
-							<?php
-								if($nameErr != "")
-								{
-									echo "<br/>".$nameErr;
-								}
-								if($emailErr != "")
-								{
-									echo "<br/>".$emailErr;
-								}
-								if($userErr != "")
-								{
-									echo "<br/>".$userErr;
-								}
-								if($addErr != "")
-								{
-									echo "<br/>".$addErr;
-								}
-								if($passErr != "")
-								{
-									echo "<br/>".$passErr;
-								}
-							?>
-							</p>
+							<div class="row uniform 50%">
+								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
+									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passwordC" id="passwordC" value="" placeholder="Confirm Password">
+									<?php if($passErr != "") '<span class="tooltiptext">'.$passErr.'</span>';?>
+								</div>
+							</div>
+							<p id="field">*All Fields Required</p>
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
