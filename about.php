@@ -26,15 +26,15 @@
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<h1><a href="index.html">FlyBy</h1>
+					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a href="index.php">Home</a></li>
 							<li>
 								<a href="#">About Us</a>
 							</li>
-							<li><a href="login.html" class="button">Log In</a></li>
-							<li><a href="signup.html" class="button">Sign Up</a></li>
+							<li><a href="login.php" class="button">Log In</a></li>
+							<li><a href="signup.php" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -103,7 +103,7 @@
 
 					<form>
 						<ul class="actions">
-							<li><a href="signup.html" class="button">Sign Up!</a></li>
+							<li><a href="signup.php" class="button">Sign Up!</a></li>
 						</ul>
 					</form>
 
