@@ -157,29 +157,29 @@
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($userErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $user?>" placeholder="Username">
-									<?php if($userErr != "") '<span class="tooltiptext">'.$userErr.'</span>';?>
+									<?php if($userErr != "") echo '<span class="tooltiptext">'.$userErr.'</span>';?>
 								</div>
 								<div class="6u 12u(mobilep) <?php if($emailErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email">
-									<?php if($emailErr != "") '<span class="tooltiptext">'.$emailErr.'</span>';?>
+									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
-									<?php if($nameErr != "") '<span class="tooltiptext">'.$nameErr.'</span>';?>
+									<?php if($nameErr != "") echo '<span class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($addErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $add?>" placeholder="Address">
-									<?php if($addErr != "") '<span class="tooltiptext">'.$addErr.'</span>';?>
+									<?php if($addErr != "") echo '<span class="tooltiptext">'.$addErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($cityErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $city?>" placeholder="City">
-									<?php if($cityErr != "") '<span class="tooltiptext">'.$cityErr.'</span>';?>
+									<?php if($cityErr != "") echo '<span class="tooltiptext">'.$cityErr.'</span>';?>
 								</div>
 								<div class="6u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $zip?>" placeholder="Zip-Code">
@@ -189,13 +189,13 @@
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="password" id="password" value="" placeholder="Password">
-									<?php if($passErr != "") '<span class="tooltiptext">'.$passErr.'</span>';?>
+									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passwordC" id="passwordC" value="" placeholder="Confirm Password">
-									<?php if($passErr != "") '<span class="tooltiptext">'.$passErr.'</span>';?>
+									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
 							<p id="field">*All Fields Required</p>
