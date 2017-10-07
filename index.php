@@ -19,12 +19,12 @@
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<h1><a href="index.html">FlyBy</h1>
+					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a href="index.php">Home</a></li>
 							<li>
-								<a href="about.html">About Us</a>
+								<a href="about.php">About Us</a>
 							</li>
 							<li><a href="login.php" class="button">Log in</a></li>
 							<li><a href="signup.php" class="button">Sign Up</a></li>
