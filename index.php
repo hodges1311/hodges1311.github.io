@@ -94,7 +94,7 @@
 								<h3>Already a Member?</h3>
 								<p>Log in to view your account status and to get access to the market place.</p>
 								<ul class="actions">
-									<li><a href="login.html" class="button alt">Log In!</a></li>
+									<li><a href="login.php" class="button alt">Log In!</a></li>
 								</ul>
 							</section>
 
@@ -106,7 +106,7 @@
 								<h3>New to the Site?</h3>
 								<p>Become a member today and get access to our vast catalog.</p>
 								<ul class="actions">
-									<li><a href="signup.html" class="button alt">Sign Up!</a></li>
+									<li><a href="signup.php" class="button alt">Sign Up!</a></li>
 								</ul>
 							</section>
 
@@ -122,7 +122,7 @@
 					<p style="margin: 0 0 1em 0;">Read the About Us Section!</p>
 					<form>
 						<ul class="actions">
-							<li><a href="about.html" class="button">About Us</a></li>
+							<li><a href="about.php" class="button">About Us</a></li>
 						</ul>
 					</form>
 				</section>
