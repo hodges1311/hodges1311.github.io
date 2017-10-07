@@ -62,6 +62,15 @@
 			}
 		}
 		
+		if(empty($_POST["state"]))
+		{
+			$stateErr = "Choose a State";
+		}
+		else
+		{
+			$state = test_input($_POST["state"]);
+		}
+		
 		if(empty($_POST["city"]))
 		{
 			$cityErr = "City is Required";
@@ -72,19 +81,6 @@
 			if (!preg_match("/^[a-zA-Z ]*$/",$city)) 
 			{
 				$cityErr = "Only letters and white space allowed for city"; 
-			}
-		}
-		
-		if(empty($_POST["address"]))
-		{
-			$addErr = "Address is Required";
-		}
-		else
-		{
-			$add = test_input($_POST["address"]);
-			if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add)) 
-			{
-				$addErr = "Only letters, numbers, & white space allowed for address"; 
 			}
 		}
 		
