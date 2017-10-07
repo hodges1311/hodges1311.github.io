@@ -2026,6 +2026,14 @@
 		text-decoration: none;
 		width: 100%;
 	}
+	
+	input#error{
+		border-color: #ff7f7f;
+	}
+	input#error:focus{
+		border-color: #ff7f7f;
+		box-shadow: 0 0 0 2px #ff7f7f;
+	}
 
 		input[type="text"]:invalid,
 		input[type="password"]:invalid,
