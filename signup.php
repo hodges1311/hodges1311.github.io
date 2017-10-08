@@ -177,9 +177,13 @@
 									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $city?>" placeholder="City">
 									<?php if($cityErr != "") echo '<span class="tooltiptext">'.$cityErr.'</span>';?>
 								</div>
-								<div class="6u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
+								<div class="4u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $zip?>" placeholder="Zip-Code">
 									<?php if($zipErr != "") echo '<span class="tooltiptext">'.$zipErr.'</span>';?>
+								</div>
+								<div class="2u 12u(mobilep) <?php if($stateErr != "") echo 'tooltip'; ?>">
+									<select id="<?php if($stateErr != "") echo 'error'; ?>" name="state" id="state"><?php echo StateDropdown(null, 'abbrev', $state); ?></select>
+									<?php if($stateErr != "") echo '<span class="tooltiptext">'.$stateErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
@@ -234,3 +238,91 @@
 
 	</body>
 </html>
+
+<?php
+
+/**
+ * States Dropdown 
+ *
+ * @uses check_select
+ * @param string $post, the one to make "selected"
+ * @param string $type, by default it shows abbreviations. 'abbrev', 'name' or 'mixed'
+ * @return string
+ */
+function StateDropdown($post=null, $type='abbrev', $stuff) {
+	$states = array(
+		array('AK', 'Alaska'),
+		array('AL', 'Alabama'),
+		array('AR', 'Arkansas'),
+		array('AZ', 'Arizona'),
+		array('CA', 'California'),
+		array('CO', 'Colorado'),
+		array('CT', 'Connecticut'),
+		array('DC', 'District of Columbia'),
+		array('DE', 'Delaware'),
+		array('FL', 'Florida'),
+		array('GA', 'Georgia'),
+		array('HI', 'Hawaii'),
+		array('IA', 'Iowa'),
+		array('ID', 'Idaho'),
+		array('IL', 'Illinois'),
+		array('IN', 'Indiana'),
+		array('KS', 'Kansas'),
+		array('KY', 'Kentucky'),
+		array('LA', 'Louisiana'),
+		array('MA', 'Massachusetts'),
+		array('MD', 'Maryland'),
+		array('ME', 'Maine'),
+		array('MI', 'Michigan'),
+		array('MN', 'Minnesota'),
+		array('MO', 'Missouri'),
+		array('MS', 'Mississippi'),
+		array('MT', 'Montana'),
+		array('NC', 'North Carolina'),
+		array('ND', 'North Dakota'),
+		array('NE', 'Nebraska'),
+		array('NH', 'New Hampshire'),
+		array('NJ', 'New Jersey'),
+		array('NM', 'New Mexico'),
+		array('NV', 'Nevada'),
+		array('NY', 'New York'),
+		array('OH', 'Ohio'),
+		array('OK', 'Oklahoma'),
+		array('OR', 'Oregon'),
+		array('PA', 'Pennsylvania'),
+		array('PR', 'Puerto Rico'),
+		array('RI', 'Rhode Island'),
+		array('SC', 'South Carolina'),
+		array('SD', 'South Dakota'),
+		array('TN', 'Tennessee'),
+		array('TX', 'Texas'),
+		array('UT', 'Utah'),
+		array('VA', 'Virginia'),
+		array('VT', 'Vermont'),
+		array('WA', 'Washington'),
+		array('WI', 'Wisconsin'),
+		array('WV', 'West Virginia'),
+		array('WY', 'Wyoming')
+	);
+	
+	$options = '<option value=""></option>';
+	
+	foreach ($states as $statef) {
+		if ($type == 'abbrev') {
+    	$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
+    } elseif($type == 'name') {
+    	$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
+    } elseif($type == 'mixed') {
+    	$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[1].'</option>'."\n";
+    }
+	}
+		
+	echo $options;
+}
+
+function check_select($i, $m) 
+{
+	if($i == $m)
+		return 'selected="selected"';
+}
+?>
