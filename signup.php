@@ -18,9 +18,10 @@
 <!-- Banner -->
 	<body>
 	<?php
+
 	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
 	$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
-	
+
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		if(empty($_POST["name"]))
@@ -30,25 +31,25 @@
 		else
 		{
 			$name = test_input($_POST["name"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$name)) 
+			if (!preg_match("/^[a-zA-Z ]*$/",$name))
 			{
-				$nameErr = "Only letters and white space allowed for Name"; 
+				$nameErr = "Only letters and white space allowed for Name";
 			}
 		}
-		
-		if (empty($_POST["email"])) 
+
+		if (empty($_POST["email"]))
 		{
 			$emailErr = "Email is required";
-		} 	
-		else 
+		}
+		else
 		{
 			$email = test_input($_POST["email"]);
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 			{
-				$emailErr = "Invalid email format"; 
+				$emailErr = "Invalid email format";
 			}
 		}
-		
+
 		if(empty($_POST["zip"]))
 		{
 			$zipErr = "Zip-Code is Required";
@@ -56,12 +57,12 @@
 		else
 		{
 			$zip = test_input($_POST["zip"]);
-			if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) > 5) 
+			if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) > 5)
 			{
-				$zipErr = "Only 5 digit number allowed for Zip-Code"; 
+				$zipErr = "Only 5 digit number allowed for Zip-Code";
 			}
 		}
-		
+
 		if(empty($_POST["state"]))
 		{
 			$stateErr = "Choose a State";
@@ -70,7 +71,7 @@
 		{
 			$state = test_input($_POST["state"]);
 		}
-		
+
 		if(empty($_POST["city"]))
 		{
 			$cityErr = "City is Required";
@@ -78,12 +79,12 @@
 		else
 		{
 			$city = test_input($_POST["city"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$city)) 
+			if (!preg_match("/^[a-zA-Z ]*$/",$city))
 			{
-				$cityErr = "Only letters and white space allowed for city"; 
+				$cityErr = "Only letters and white space allowed for city";
 			}
 		}
-		
+
 		if(empty($_POST["address"]))
 		{
 			$addErr = "Address is Required";
@@ -91,12 +92,12 @@
 		else
 		{
 			$add = test_input($_POST["address"]);
-			if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add)) 
+			if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add))
 			{
-				$addErr = "Only letters, numbers, & white space allowed for address"; 
+				$addErr = "Only letters, numbers, & white space allowed for address";
 			}
 		}
-		
+
 		if(empty($_POST["username"]))
 		{
 			$userErr = "Username Required";
@@ -104,18 +105,42 @@
 		else
 		{
 			$user = test_input($_POST["username"]);
-			if (!preg_match("/^[a-zA-Z0-9]*$/",$user)) 
+			if (!preg_match("/^[a-zA-Z0-9]*$/",$user))
 			{
-				$userErr = "Only letters & number allowed for Username"; 
+				$userErr = "Only letters & number allowed for Username";
 			}
 			if(strlen($user) > 20)
 			{
 				$userErr = "Username can only be 20 Characters Long";
 			}
 		}
+		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
+			$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+			$username = "root"; //default is root
+			$serverpassword= ""; //default is none
+			$databasename = "mysql";
+
+			$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
+			$result = mysqli_query($conn, $sql); //does your query
+			echo "'<script>console.log(\"\")</script>'";
+			if ($result) { //checks your query
+					echo "New record created successfully";
+			} else {
+					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
+
+			mysqli_close($conn);
 	}
-	
-	function test_input($data) 
+
+	}
+
+	function test_input($data)
 	{
 		$data = trim($data);
 		$data = stripslashes($data);
@@ -163,13 +188,13 @@
 							<div class="row uniform 50%">
 								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
-									<?php if($nameErr != "") echo '<span class="tooltiptext">'.$nameErr.'</span>';?>
+									<?php if($nameErr != "") echo '<span  class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($addErr != "") echo 'tooltip'; ?>">
 									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $add?>" placeholder="Address">
-									<?php if($addErr != "") echo '<span class="tooltiptext">'.$addErr.'</span>';?>
+									<?php if($addErr != "") echo '<span  class="tooltiptext">'.$addErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
@@ -188,13 +213,13 @@
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
-									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="password" id="password" value="" placeholder="Password">
+									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="password" id="pass" value="<?php echo $pass?>" placeholder="Password">
 									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
-									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passwordC" id="passwordC" value="" placeholder="Confirm Password">
+									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passwordC" id="passc" value="<?php echo $passc?>" placeholder="Confirm Password">
 									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
@@ -213,9 +238,9 @@
 				</div>
 
 				<div>
-				</div>	
+				</div>
 			<!-- CTA -->
-					
+
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="copyright">
@@ -242,7 +267,7 @@
 <?php
 
 /**
- * States Dropdown 
+ * States Dropdown
  *
  * @uses check_select
  * @param string $post, the one to make "selected"
@@ -304,9 +329,9 @@ function StateDropdown($post=null, $type='abbrev', $stuff) {
 		array('WV', 'West Virginia'),
 		array('WY', 'Wyoming')
 	);
-	
+
 	$options = '<option value=""></option>';
-	
+
 	foreach ($states as $statef) {
 		if ($type == 'abbrev') {
     	$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
@@ -316,13 +341,16 @@ function StateDropdown($post=null, $type='abbrev', $stuff) {
     	$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[1].'</option>'."\n";
     }
 	}
-		
+
 	echo $options;
 }
 
-function check_select($i, $m) 
+
+
+function check_select($i, $m)
 {
 	if($i == $m)
 		return 'selected="selected"';
 }
+
 ?>
