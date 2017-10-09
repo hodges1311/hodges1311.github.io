@@ -57,7 +57,7 @@
 		else
 		{
 			$zip = test_input($_POST["zip"]);
-			if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) > 5)
+			if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) != 5)
 			{
 				$zipErr = "Only 5 digit number allowed for Zip-Code";
 			}
@@ -114,30 +114,58 @@
 				$userErr = "Username can only be 20 Characters Long";
 			}
 		}
+		
+		if(empty($_POST["pass"])) {
+			$passErr = "Password Required";
+		}
+		else {
+			$pass = password_hash($_POST["pass"],PASSWORD_DEFAULT);
+		}
+		if(empty($_POST["passc"])){
+			$passErr = "Password Required";
+		}
+		else{
+			$passc = password_hash($_POST["passc"],PASSWORD_DEFAULT);
+		}
+		if(password_verify($_POST["pass"],$passc)){
+			$passErr = "Passwords Do Not Match";
+		}
+		
+		$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+		$username = "root"; //default is root
+		$serverpassword= ""; //default is none
+		$databasename = "mysql";
+
+		$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+		
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		}
+		
+		$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
+		$result = mysqli_query($conn, $check);
+		$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
+		$result2 = mysqli_query($conn, $check2);
+		if(mysqli_num_rows($result) >= 1) {
+			$emailErr = "Email is already in use. Have you Signed up before?";
+		}
+		if(mysqli_num_rows($result2) >=1){
+			$userErr = "Username is already taken.";
+		}
+		
 		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
-			$servername = "localhost"; //local machine, the port on which the mySQL server runs on
-			$username = "root"; //default is root
-			$serverpassword= ""; //default is none
-			$databasename = "mysql";
-
-			$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-
-			if ($conn->connect_error) {
-				die("Connection failed: " . $conn->connect_error);
-			}
-
 			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
 			echo "'<script>console.log(\"\")</script>'";
 			if ($result) { //checks your query
-					echo "New record created successfully";
-			} else {
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				echo "New record created successfully";
+				header("Location: success.php");
+			} 
+			else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
-
-			mysqli_close($conn);
-	}
-
+		}
+		mysqli_close($conn);
 	}
 
 	function test_input($data)
@@ -213,13 +241,13 @@
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
-									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="password" id="pass" value="<?php echo $pass?>" placeholder="Password">
+									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="pass" id="pass" value="" placeholder="Password">
 									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
-									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passwordC" id="passc" value="<?php echo $passc?>" placeholder="Confirm Password">
+									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passc" id="passc" value="" placeholder="Confirm Password">
 									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
