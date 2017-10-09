@@ -87,3 +87,7 @@
     visibility: visible;
     opacity: 1;
 }
+
+option:first {
+    color: #999;
+}
