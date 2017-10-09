@@ -127,7 +127,7 @@
 		else{
 			$passc = password_hash($_POST["passc"],PASSWORD_DEFAULT);
 		}
-		if(!password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
+		if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
 			$passErr = "Passwords Do Not Match";
 		}
 		
