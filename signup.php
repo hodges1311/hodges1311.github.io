@@ -127,7 +127,7 @@
 		else{
 			$passc = password_hash($_POST["passc"],PASSWORD_DEFAULT);
 		}
-		if(password_verify($_POST["pass"],$passc)){
+		if(!password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
 			$passErr = "Passwords Do Not Match";
 		}
 		
@@ -358,16 +358,18 @@ function StateDropdown($post=null, $type='abbrev', $stuff) {
 		array('WY', 'Wyoming')
 	);
 
-	$options = '<option value=""></option>';
+	$options = '<option value="" disabled selected>State</option>';
 
 	foreach ($states as $statef) {
 		if ($type == 'abbrev') {
-    	$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
-    } elseif($type == 'name') {
-    	$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
-    } elseif($type == 'mixed') {
-    	$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[1].'</option>'."\n";
-    }
+			$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
+        } 
+		elseif($type == 'name') {
+			$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
+		}
+		elseif($type == 'mixed') {
+			$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[1].'</option>'."\n";
+		}
 	}
 
 	echo $options;
