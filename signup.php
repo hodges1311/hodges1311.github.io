@@ -118,11 +118,17 @@
 		if(empty($_POST["pass"])) {
 			$passErr = "Password Required";
 		}
+		elseif(strlen($_POST["pass"]) > 72) {
+			$passErr = "Password Cannot be more than 72 Characters";
+		}
 		else {
 			$pass = password_hash($_POST["pass"],PASSWORD_DEFAULT);
 		}
 		if(empty($_POST["passc"])){
 			$passErr = "Password Required";
+		}
+		elseif(strlen($_POST["passc"]) > 72) {
+			$passErr = "Password Cannot be more than 72 Characters";
 		}
 		else{
 			$passc = password_hash($_POST["passc"],PASSWORD_DEFAULT);
