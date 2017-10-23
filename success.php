@@ -16,7 +16,7 @@
 	</head>
 	
 <!-- Banner -->
-	<section id="banner" style="padding: 10em 0 10em 0">
+	<section id="banner" style="padding: 5em 0 5em 0">
 		<h2>FlyBy</h2>
 		<p>Quality paper aircraft to conquer the skies</p>
 	</section>
@@ -48,7 +48,7 @@
 						<header class="major">
 							<h2>And You're Off!
 							</h2>
-							<p>Form Submission was Successful.
+							<p>Form Submission was Successful. A confirmation email has been sent to your email address.
 							</p>
 						</header>
 						<span class="image featured">
@@ -61,9 +61,9 @@
 				<div>
 					
 			<!-- Footer -->
-				<footer id="footer">
+				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">
-						<li>Contact us at: FlyBy@gmail.com  OR  804-237-7321
+						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321
 						</li>
 						<li>&copy; FlyBy. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>

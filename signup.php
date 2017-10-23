@@ -16,8 +16,23 @@
 	</head>
 
 <!-- Banner -->
+
 	<body>
 	<?php
+		use PHPMailer\PHPMailer\PHPMailer;
+		use PHPMailer\PHPMailer\Exception;
+
+		require 'PHPMailer/src/Exception.php';
+		require 'PHPMailer/src/PHPMailer.php';
+		require 'PHPMailer/src/SMTP.php';
+
+	$mail = new PHPMailer;
+	$mail->IsSMTP();
+	$mail->Host = 'smtp.gmail.com';
+	$mail->Port = 587;
+	$mail->Username = 'flybycorporate@gmail.com';
+	$mail->Password = 'DummyPassword2';
+	$mail->SMTPAuth = true;
 
 	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
 	$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
@@ -165,6 +180,17 @@
 			echo "'<script>console.log(\"\")</script>'";
 			if ($result) { //checks your query
 				echo "New record created successfully";
+				$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
+				$mail->addAddress($email);
+				$mail->Subject  = 'Welcome to FlyBy';
+				$mail->Body     = 'Hello, '.$name.'! Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
+				if(!$mail->send()) {
+					echo 'Message was not sent.';
+					echo 'Mailer error: ' . $mail->ErrorInfo;
+				} 
+				else {
+					echo 'Message has been sent.';
+				}
 				header("Location: success.php");
 			} 
 			else {
@@ -276,9 +302,9 @@
 			<!-- CTA -->
 
 			<!-- Footer -->
-				<footer id="footer">
+				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">
-						<li>Contact us at: FlyBy@gmail.com  OR  804-237-7321
+						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321
 						</li>
 						<li>&copy; FlyBy. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>

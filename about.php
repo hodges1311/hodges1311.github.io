@@ -110,9 +110,9 @@
 				</section>
 					
 			<!-- Footer -->
-				<footer id="footer">
+				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">
-						<li>Contact us at: FlyBy@gmail.com  OR  804-237-7321
+						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321
 						</li>
 						<li>&copy; FlyBy. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
