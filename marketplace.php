@@ -45,7 +45,14 @@
 								<h3>Paper</h3>
 								<p>This is our highest qualtiy construction paper for use in all of your crafting needs</p>
 								<ul class="actions">
-									<li><a href="login.php" class="button alt">Log In!</a></li>
+									<li>
+										<form action="https://test.bitpay.com/checkout" method="post" >
+											<input type="hidden" name="action" value="checkout" />
+											<input type="hidden" name="posData" value="" />
+											<input type="hidden" name="data" value="kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbZfG4Vju9kiSGJPYG2CFs3me9DORD4bWhQBZNjbM2+ZnId9IGh70nJTGB0+bq92+zmplvIR/XmALCOhBwxQdFSjGyEHJbjZCRX0DF7Ob8LZN+EzZ1iDzrCR38ooEZ2QKP" />
+											<input type="image" src="https://test.bitpay.com/img/button-large.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+										</form>
+									</li>
 								</ul>
 							</section>
 
