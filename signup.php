@@ -129,7 +129,7 @@
 				$userErr = "Username can only be 20 Characters Long";
 			}
 		}
-
+		
 		if(empty($_POST["pass"])) {
 			$passErr = "Password Required";
 		}
@@ -151,18 +151,18 @@
 		if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
 			$passErr = "Passwords Do Not Match";
 		}
-
+		
 		$servername = "localhost"; //local machine, the port on which the mySQL server runs on
 		$username = "root"; //default is root
 		$serverpassword= ""; //default is none
 		$databasename = "mysql";
 
 		$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-
+		
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
 		}
-
+		
 		$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
 		$result = mysqli_query($conn, $check);
 		$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
@@ -173,7 +173,7 @@
 		if(mysqli_num_rows($result2) >=1){
 			$userErr = "Username is already taken.";
 		}
-
+		
 		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
 			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
@@ -183,16 +183,16 @@
 				$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
 				$mail->addAddress($email);
 				$mail->Subject  = 'Welcome to FlyBy';
-				$mail->Body     = 'Hello, '.$name.'! Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
+				$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
 				if(!$mail->send()) {
 					echo 'Message was not sent.';
 					echo 'Mailer error: ' . $mail->ErrorInfo;
-				}
+				} 
 				else {
 					echo 'Message has been sent.';
 				}
 				header("Location: success.php");
-			}
+			} 
 			else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
@@ -219,9 +219,6 @@
 							<li>
 								<a href="about.php">About Us</a>
 							</li>
-							<li>
-								<a href="contact.php">Contact Us</a>
-							</li>
 							<li><a href="login.php" class="button">Log In</a></li>
 							<li><a href="#" class="button">Sign Up</a></li>
 						</ul>
@@ -240,48 +237,57 @@
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($userErr != "") echo 'tooltip'; ?>">
+									Username
 									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $user?>" placeholder="Username">
 									<?php if($userErr != "") echo '<span class="tooltiptext">'.$userErr.'</span>';?>
 								</div>
 								<div class="6u 12u(mobilep) <?php if($emailErr != "") echo 'tooltip'; ?>">
+									Email
 									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email">
 									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
+									Name
 									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
 									<?php if($nameErr != "") echo '<span  class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($addErr != "") echo 'tooltip'; ?>">
+									Address
 									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $add?>" placeholder="Address">
 									<?php if($addErr != "") echo '<span  class="tooltiptext">'.$addErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($cityErr != "") echo 'tooltip'; ?>">
+									City
 									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $city?>" placeholder="City">
 									<?php if($cityErr != "") echo '<span class="tooltiptext">'.$cityErr.'</span>';?>
 								</div>
 								<div class="4u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
+									Zip Code
 									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $zip?>" placeholder="Zip-Code">
 									<?php if($zipErr != "") echo '<span class="tooltiptext">'.$zipErr.'</span>';?>
 								</div>
 								<div class="2u 12u(mobilep) <?php if($stateErr != "") echo 'tooltip'; ?>">
+									State
 									<select id="<?php if($stateErr != "") echo 'error'; ?>" name="state" id="state"><?php echo StateDropdown(null, 'abbrev', $state); ?></select>
 									<?php if($stateErr != "") echo '<span class="tooltiptext">'.$stateErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
+									Password
 									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="pass" id="pass" value="" placeholder="Password">
 									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($passErr != "") echo 'tooltip'; ?>">
+									Confirm Password
 									<input id="<?php if($passErr != "") echo 'error'; ?>" type="password" name="passc" id="passc" value="" placeholder="Confirm Password">
 									<?php if($passErr != "") echo '<span class="tooltiptext">'.$passErr.'</span>';?>
 								</div>
@@ -398,7 +404,7 @@ function StateDropdown($post=null, $type='abbrev', $stuff) {
 	foreach ($states as $statef) {
 		if ($type == 'abbrev') {
 			$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
-        }
+        } 
 		elseif($type == 'name') {
 			$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
 		}
