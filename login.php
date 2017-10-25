@@ -50,11 +50,13 @@
 						<form method="post" action="#">
 							<div class="row uniform 50%">
 								<div class="12u">
+									Email
 									<input type="email" name="email" id="email" value="" placeholder="Email">
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u">
+									Password
 									<input type="password" name="password" id="password" value="" placeholder="Password">
 								</div>
 							</div>
