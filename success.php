@@ -14,13 +14,13 @@
 		<link rel="stylesheet" href="assets/css/span.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	
+
 <!-- Banner -->
 	<section id="banner" style="padding: 5em 0 5em 0">
 		<h2>FlyBy</h2>
 		<p>Quality paper aircraft to conquer the skies</p>
 	</section>
-	
+
 	<body class="landing">
 		<div id="page-wrapper">
 
@@ -31,7 +31,10 @@
 						<ul>
 							<li><a href="index.php">Home</a></li>
 							<li>
-								<a href="#">About Us</a>
+								<a href="about.php">About Us</a>
+							</li>
+							<li>
+								<a href="contact.php">Contact Us</a>
 							</li>
 							<li><a href="login.php" class="button">Log In</a></li>
 							<li><a href="signup.php" class="button">Sign Up</a></li>
@@ -59,7 +62,7 @@
 					</section>
 				</div>
 				<div>
-					
+
 			<!-- Footer -->
 				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">

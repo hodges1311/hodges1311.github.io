@@ -129,7 +129,7 @@
 				$userErr = "Username can only be 20 Characters Long";
 			}
 		}
-		
+
 		if(empty($_POST["pass"])) {
 			$passErr = "Password Required";
 		}
@@ -151,18 +151,18 @@
 		if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
 			$passErr = "Passwords Do Not Match";
 		}
-		
+
 		$servername = "localhost"; //local machine, the port on which the mySQL server runs on
 		$username = "root"; //default is root
 		$serverpassword= ""; //default is none
 		$databasename = "mysql";
 
 		$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-		
+
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
 		}
-		
+
 		$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
 		$result = mysqli_query($conn, $check);
 		$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
@@ -173,7 +173,7 @@
 		if(mysqli_num_rows($result2) >=1){
 			$userErr = "Username is already taken.";
 		}
-		
+
 		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
 			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
@@ -187,12 +187,12 @@
 				if(!$mail->send()) {
 					echo 'Message was not sent.';
 					echo 'Mailer error: ' . $mail->ErrorInfo;
-				} 
+				}
 				else {
 					echo 'Message has been sent.';
 				}
 				header("Location: success.php");
-			} 
+			}
 			else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
@@ -218,6 +218,9 @@
 							<li><a href="index.php">Home</a></li>
 							<li>
 								<a href="about.php">About Us</a>
+							</li>
+							<li>
+								<a href="contact.php">Contact Us</a>
 							</li>
 							<li><a href="login.php" class="button">Log In</a></li>
 							<li><a href="#" class="button">Sign Up</a></li>
@@ -395,7 +398,7 @@ function StateDropdown($post=null, $type='abbrev', $stuff) {
 	foreach ($states as $statef) {
 		if ($type == 'abbrev') {
 			$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
-        } 
+        }
 		elseif($type == 'name') {
 			$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
 		}

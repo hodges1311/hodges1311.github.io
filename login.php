@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="assets/css/span.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	
+
 <!-- Banner -->
 	<body>
 		<div id="page-wrapper">
@@ -28,6 +28,9 @@
 							<li><a href="index.php">Home</a></li>
 							<li>
 								<a href="about.php">About Us</a>
+							</li>
+							<li>
+								<a href="contact.php">Contact Us</a>
 							</li>
 							<li><a href="#" class="button">Log In</a></li>
 							<li><a href="signup.php" class="button">Sign Up</a></li>
@@ -69,9 +72,9 @@
 				</div>
 
 				<div>
-				</div>	
+				</div>
 			<!-- CTA -->
-					
+
 			<!-- Footer -->
 				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">

@@ -115,6 +115,9 @@
 							<li>
 								<a href="about.php">About Us</a>
 							</li>
+              <li>
+                <a href="#">Contact Us</a>
+              </li>
 							<li><a href="login.php" class="button">Log In</a></li>
 							<li><a href="#" class="button">Sign Up</a></li>
 						</ul>

@@ -14,13 +14,13 @@
 		<link rel="stylesheet" href="assets/css/span.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	
+
 <!-- Banner -->
 	<section id="banner" style="padding: 10em 0 10em 0">
 		<h2>FlyBy</h2>
 		<p>Quality paper aircraft to conquer the skies</p>
 	</section>
-	
+
 	<body class="landing">
 		<div id="page-wrapper">
 
@@ -32,6 +32,9 @@
 							<li><a href="index.php">Home</a></li>
 							<li>
 								<a href="#">About Us</a>
+							</li>
+							<li>
+								<a href="contact.php">Contact Us</a>
 							</li>
 							<li><a href="login.php" class="button">Log In</a></li>
 							<li><a href="signup.php" class="button">Sign Up</a></li>
@@ -48,7 +51,7 @@
 						<header class="major">
 							<h2>What is FlyBy?
 							</h2>
-							<p>We offer a simple, easy-to-use platform for the buying and selling of paper 
+							<p>We offer a simple, easy-to-use platform for the buying and selling of paper
 							aircraft designs. FlyBy strives to simultaneously protect our user's intellectual
 							rights and to facilitate their product distribution. Just as our slogan suggests,
 							we want to empower our users so that their creativity can take them to new heights
@@ -70,7 +73,7 @@
 							<h2>Our Mission Statement
 							</h2>
 							<p>Here at FlyBy, we want encourage creativity and community by allowing
-							the continued creation of high quality paper planes. From enthusiasts to 
+							the continued creation of high quality paper planes. From enthusiasts to
 							young children and passersby, FlyBy is meant to be accessible for everyone
 							and tries to offer a wide variety of crafts</p>
 						</header>
@@ -94,7 +97,7 @@
 						<span class="image featured">
 							<img align="middle" style="display: inline-block;" class="resize" src="images/plane3.jpg" alt="" /></span>
 					</section>
-				</div>	
+				</div>
 			<!-- CTA -->
 				<section id="cta" style="padding: 1em 0 1em 0;">
 
@@ -108,7 +111,7 @@
 					</form>
 
 				</section>
-					
+
 			<!-- Footer -->
 				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">
