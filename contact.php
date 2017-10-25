@@ -136,18 +136,21 @@
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 							<div class="row uniform 50%">
 								<div class="12u <?php if($emailErr != "") echo 'tooltip'; ?>">
+									Email
 									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email">
 									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
+									Name
 									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
 									<?php if($nameErr != "") echo '<span  class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($infoErr != "") echo 'tooltip'; ?>">
+									Message
 									<textarea style="height:300" id="<?php if($infoErr != "") echo 'error'; ?>" name="body" id="body" value="<?php echo $body?>" placeholder="Enter message..."></textarea>
 									<?php if($infoErr != "") echo '<span  class="tooltiptext">'.$infoErr.'</span>';?>
 								</div>
