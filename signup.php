@@ -216,11 +216,10 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="index.php">Home</a></li>
-							<li>
-								<a href="about.php">About Us</a>
-							</li>
+							<li><a href="about.php">About Us</a></li>
+							<li><a href="contact.php">Contact Us</a></li>
 							<li><a href="login.php" class="button">Log In</a></li>
-							<li><a href="#" class="button">Sign Up</a></li>
+							<li><a href="signup.php" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>
