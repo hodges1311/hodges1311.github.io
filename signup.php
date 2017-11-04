@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <!--
 	Alpha by HTML5 UP
@@ -19,13 +22,20 @@
 
 	<body>
 	<?php
-		use PHPMailer\PHPMailer\PHPMailer;
-		use PHPMailer\PHPMailer\Exception;
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+	
+	require 'PHPMailer/src/Exception.php';
+	require 'PHPMailer/src/PHPMailer.php';
+	require 'PHPMailer/src/SMTP.php';
 
-		require 'PHPMailer/src/Exception.php';
-		require 'PHPMailer/src/PHPMailer.php';
-		require 'PHPMailer/src/SMTP.php';
-
+	if($_SESSION["redirect"] != NULL)
+		$mp = $_SESSION["redirect"];
+	if($_SESSION["user"] != "")
+		$mp = "signout";
+	session_unset();
+	$_SESSION["user"] = "";
+	
 	$mail = new PHPMailer;
 	$mail->IsSMTP();
 	$mail->Host = 'smtp.gmail.com';
@@ -215,11 +225,14 @@
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<li><a href="login.php" class="button">Log In</a></li>
-							<li><a href="signup.php" class="button">Sign Up</a></li>
+							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">My Profile</a></li>';?>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
@@ -231,6 +244,7 @@
 				<header>
 					<h2>Sign Up</h2>
 					<p>Join our flying club and start buying/selling today!</p>
+					<?php if($mp == "signout") echo '<br><body>You Have Been Signed Out.</body>';?>
 				</header>
 					<div class="box">
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

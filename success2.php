@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE HTML>
 <!--
 	Alpha by HTML5 UP
@@ -29,15 +32,14 @@
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
-							<li>
-								<a href="about.php">About Us</a>
-							</li>
-              <li>
-                <a href="contact.php">Contact Us</a>
-              </li>
-							<li><a href="login.php" class="button">Log In</a></li>
-							<li><a href="signup.php" class="button">Sign Up</a></li>
+							<li><a href="about.php">About Us</a></li>
+							<li><a href="contact.php">Contact Us</a></li>
+							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">My Profile</a></li>';?>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>

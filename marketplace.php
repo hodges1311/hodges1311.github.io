@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 	<head>
 		<title>FlyBy</title>
@@ -9,7 +12,13 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		
 	</head>
-	
+	<?php
+	if($_SESSION["user"] == "")
+	{
+		$_SESSION["redirect"] = "marketplace";
+		header("Location: login.php");
+	}
+	?>
 <!-- Banner -->
 	<section class= "box special" id="banner" style="padding: 5em 0 5em 0">
 		<h2>FlyBy</h2>
@@ -24,12 +33,14 @@
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
-							<li>
-								<a href="#">About Us</a>
-							</li>
-							<li><a href="login.php" class="button">Log In</a></li>
-							<li><a href="signup.php" class="button">Sign Up</a></li>
+							<li><a href="about.php">About Us</a></li>
+							<li><a href="contact.php">Contact Us</a></li>
+							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">My Profile</a></li>';?>
+							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
