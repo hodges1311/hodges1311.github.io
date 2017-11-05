@@ -41,9 +41,12 @@ session_start();
 				<section id="banner">
 					<h2>FlyBy</h2>
 					<p>Quality paper aircraft to conquer the skies</p>
+					<?php if($_SESSION["user"] != "") echo '<p>Welcome Back, '.$_SESSION["name"].'!</p>';?>
 					<ul class="actions">
-						<li><a href="signup.php" class="button special">Sign Up</a></li>
-						<li><a href="about.php" class="button">About Us</a></li>
+						<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button special">Sign Up</a></li>';?>
+						<?php if($_SESSION["user"] == "") echo '<li><a href="about.php" class="button">About Us</a></li>';?>
+						<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button special">Your Profile</a></li>';?>
+						<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php" class="button">MarketPlace</a></li>';?>
 					</ul>
 				</section>
 
@@ -92,8 +95,8 @@ session_start();
 					</section>
 
 					<div class="row">
+					<?php if($_SESSION["user"] == "") echo '
 						<div class="6u 12u(narrower)">
-
 							<section class="box special">
 								<span class="image featured"><img src="images/plane2.jpg" alt="" width="450" height="322"></span>
 								<h3>Already a Member?</h3>
@@ -102,10 +105,8 @@ session_start();
 									<li><a href="login.php" class="button alt">Log In!</a></li>
 								</ul>
 							</section>
-
 						</div>
 						<div class="6u 12u(narrower)">
-
 							<section class="box special">
 								<span class="image featured"><img src="images/plane1.jpg" alt="" width="450" height="322"></span>
 								<h3>New to the Site?</h3>
@@ -114,15 +115,44 @@ session_start();
 									<li><a href="signup.php" class="button alt">Sign Up!</a></li>
 								</ul>
 							</section>
-
+						</div>';
+					else
+						echo '
+						<div class="6u 12u(narrower)">
+							<section class="box special">
+								<span class="image featured"><img src="images/papers.jpeg" alt="" width="450" height="322"></span>
+								<h3>Buy our Quality Paper Here!</h3>
+								<p>For Use in All of Your Crafting Needs. Price: .250 Bitcoin</p>
+								<ul class="actions">
+									<li>
+										<form action="https://test.bitpay.com/checkout" method="post" style="margin: 0 0 0 0; padding: 0 0 10px 0;">
+											<input type="hidden" name="action" value="checkout" />
+											<input type="hidden" name="posData" value="" />
+											<input type="hidden" name="data" value="kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbZfG4Vju9kiSGJPYG2CFs3me9DORD4bWhQBZNjbM2+ZnId9IGh70nJTGB0+bq92+zmplvIR/XmALCOhBwxQdFSjGyEHJbjZCRX0DF7Ob8LZN+EzZ1iDzrCR38ooEZ2QKP" />
+											<input type="image" src="https://test.bitpay.com/img/button-medium.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+										</form>
+									</li>
+								</ul>
+							</section>
 						</div>
+						<div class="6u 12u(narrower)">
+							<section class="box special">
+								<span class="image featured"><img src="images/plane1.jpg" alt="" width="450" height="322"></span>
+								<h3>Visit our MarketPlace!</h3>
+								<p>Where You Can Find the Paper Planes of Your Dreams!</p>
+								<ul class="actions">
+									<li style="padding: 0 1em 0 0;"><a href="marketplace.php" class="button alt">MarketPlace</a></li>
+								</ul>
+							</section>
+						</div>'
+					?>
 					</div>
 
 				</section>
 
 			<!-- CTA -->
+			<?php if($_SESSION["user"] == "") echo '
 				<section id="cta" style="padding: 1em 0 1em 0;">
-
 					<h2 style="margin: 0 0 0 0;">Want to know more?</h2>
 					<p style="margin: 0 0 1em 0;">Read the About Us Section!</p>
 					<form>
@@ -130,18 +160,27 @@ session_start();
 							<li><a href="about.php" class="button">About Us</a></li>
 						</ul>
 					</form>
-				</section>
-
+				</section>';
+				else
+					echo '
+				<section id="cta" style="padding: 1em 0 1em 0;">
+					<h2 style="margin: 0 0 0 0;">Otherwise Check Out Your Profile!</h2>
+					<p style="margin: 0 0 1em 0;">And Edit Any User Settings & Items That You Have Posted!</p>
+					<form>
+						<ul class="actions">
+							<li><a href="myprofile.php" class="button">Your Profile</a></li>
+						</ul>
+					</form>
+				</section>';
+			?>
 			<!-- Footer -->
 				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">
-						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321
-						</li>
+						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321</li>
 						<li>&copy; FlyBy. All rights reserved.
 						</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</footer>
-
 		</div>
 
 		<!-- Scripts -->

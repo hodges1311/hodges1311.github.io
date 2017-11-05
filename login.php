@@ -87,6 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			{
 				$passErr = "";
 				$_SESSION["user"] = $row["username"];
+				$_SESSION["name"] = $row["name"];
 				header("Location: index.php");
 			}
 			else
@@ -178,8 +179,7 @@ function test_input($data)
 			<!-- Footer -->
 				<footer id="footer" style="padding: 2em 0 2em 0">
 					<ul class="copyright">
-						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321
-						</li>
+						<li>Contact us at: FlyByCorporate@gmail.com  OR  804-237-7321</li>
 						<li>&copy; FlyBy. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</footer>

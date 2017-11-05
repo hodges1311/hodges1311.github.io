@@ -50,7 +50,6 @@ session_start();
 				<section class="container">
 					<div class="row">
 						<div class="6u 12u(narrower)">
-
 							<section class="box special">
 								<span class="image featured"><img src="images/papers.jpeg" alt="" width="450" height="322"></span>
 								<h3>Paper</h3>
@@ -66,7 +65,6 @@ session_start();
 									</li>
 								</ul>
 							</section>
-
 						</div>
 					</div>
 				</section>

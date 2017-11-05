@@ -201,6 +201,8 @@ session_start();
 				else {
 					echo 'Message has been sent.';
 				}
+				$_SESSION["user"] = $user;
+				$_SESSION["name"] = $name;
 				header("Location: success.php");
 			} 
 			else {
