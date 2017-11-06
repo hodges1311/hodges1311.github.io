@@ -18,6 +18,22 @@ session_start();
 		$_SESSION["redirect"] = "marketplace";
 		header("Location: login.php");
 	}
+	
+	$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+	$username = "root"; //default is root
+	$serverpassword= ""; //default is none
+	$databasename = "mysql";
+	
+	$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+		}
+	
+	$sql = "SELECT * FROM marketplace"; //Queries must be in string format
+	$result = mysqli_query($conn, $sql); //does your query
+
+	mysqli_close($conn);
 	?>
 <!-- Banner -->
 	<section class= "box special" id="banner" style="padding: 5em 0 5em 0">
