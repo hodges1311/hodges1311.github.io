@@ -29,49 +29,59 @@ session_start();
 	<body>
 	<?php
 
-	$nameErr = $emailErr = $infoErr = "";
-	$name = $email = $body = "";
+	$itemErr = $imgErr = $desErr = $priErr = $owner = "";
+	$item = $img = $des = $pri = $data = "";
 
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
-		if(empty($_POST["name"]))
+		if(empty($_POST["item"]))
 		{
-			$nameErr = "Name is Required";
+			$itemErr = "Item Name is Required";
 		}
 		else
 		{
-			$name = test_input($_POST["name"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$name))
+			$item = test_input($_POST["item"]);
+			if (!preg_match("/^[a-zA-Z\d ]*$/",$item))
 			{
-				$nameErr = "Only letters and white space allowed for Name";
+				$nameErr = "Only letters, digits, and white space allowed for Name";
+			}
+			if(strlen($item) > 40)
+			{
+				$userErr = "Item Names can only be 20 Characters Long";
 			}
 		}
 
-		if (empty($_POST["email"]))
+		if (empty($_POST["img"]))
 		{
-			$emailErr = "Email is required";
+			$imgErr = "Image Source is required";
 		}
 		else
 		{
-			$email = test_input($_POST["email"]);
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-			{
-				$emailErr = "Invalid email format";
-			}
+			$img = test_input($_POST["img"]);
 		}
 
-		if(empty($_POST["body"]))
+		if(empty($_POST["des"]))
 		{
-			$infoErr = "Message is required";
+			$desErr = "Description is required";
 		}
 		else
 		{
-			$body = test_input($_POST["body"]);
+			$des = test_input($_POST["des"]);
 			if (!preg_match("/^[a-zA-Z\d \' \. \, \" \: \; \? \- \! \s ]*$/",$body) || strlen($body) < 1)
 			{
-				$infoErr = "Message must only contain alphanumerical characters and punctuation";
+				$desErr = "Description must only contain alphanumerical characters and punctuation";
 			}
 		}
+		if(empty($_POST["price"]))
+		{
+			$priErr = "Choose a price";
+		}
+		else
+		{
+			$data = test_input($_POST["price"]);
+		}
+		
+		$owner = $_SESSION["user"];
 
 		$servername = "localhost"; //local machine, the port on which the mySQL server runs on
 		$username = "root"; //default is root
@@ -85,7 +95,7 @@ session_start();
 		}
 
 		if($nameErr == "" && $emailErr == "" && $infoErr == ""){
-			$sql = "INSERT INTO contactUs (Name,	Email, Body) VALUES ('$name', '$email', '$body')"; //Queries must be in string format
+			$sql = "INSERT INTO marketplace (item, imgsrc, des, price, data, owner) VALUES ('$item', '$img', '$des', '$pri', '$data', '$owner')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
 			if ($result) { //checks your query
 				echo "New record created successfully";
@@ -130,37 +140,42 @@ session_start();
 				<div>
 				<section id="main" class="container 75%">
 				<header>
-					<h2>Contact Us</h2>
-					<p>Have an issue taking off? Please let us know below! We will respond as quickly as possible.</p>
+					<h2>Post Your Product!</h2>
+					<p>Post your item for sale and start earning money while driving the invoation of better plane designs foward!</p>
 				</header>
 					<div class="box">
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 							<div class="row uniform 50%">
-								<div class="12u <?php if($emailErr != "") echo 'tooltip'; ?>">
-									Email
-									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email">
-									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
+								<div class="12u <?php if($itemErr != "") echo 'tooltip'; ?>">
+									Item
+									<input id="<?php if($itemErr != "") echo 'error'; ?>" type="text" name="item" id="item" value="<?php echo $item?>" placeholder="Item">
+									<?php if($itemErr != "") echo '<span  class="tooltiptext">'.$itemErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
-								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
-									Name
-									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
-									<?php if($nameErr != "") echo '<span  class="tooltiptext">'.$nameErr.'</span>';?>
+								<div class="12u <?php if($desErr != "") echo 'tooltip'; ?>">
+									Description
+									<textarea style="height:300" id="<?php if($desErr != "") echo 'error'; ?>" name="des" id="des" value="<?php echo $des?>" placeholder="Enter Description..."></textarea>
+									<?php if($desErr != "") echo '<span  class="tooltiptext">'.$desErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
-								<div class="12u <?php if($infoErr != "") echo 'tooltip'; ?>">
-									Message
-									<textarea style="height:300" id="<?php if($infoErr != "") echo 'error'; ?>" name="body" id="body" value="<?php echo $body?>" placeholder="Enter message..."></textarea>
-									<?php if($infoErr != "") echo '<span  class="tooltiptext">'.$infoErr.'</span>';?>
+								<div class="10u 12u(mobilep) <?php if($imgErr != "") echo 'tooltip'; ?>">
+									Image Source
+									<input id="<?php if($imgErr != "") echo 'error'; ?>" type="text" name="img" id="img" value="<?php echo $img ?>" placeholder="Image Source">
+									<?php if($imgErr != "") echo '<span class="tooltiptext">'.$imgErr.'</span>';?>
+								</div>
+								<div class="2u 12u(mobilep) <?php if($priErr != "") echo 'tooltip'; ?>">
+									Price
+									<select id="<?php if($PriErr != "") echo 'error'; ?>" name="price" id="price"><?php echo StateDropdown(null, 'mixed', $pri); ?></select>
+									<?php if($priErr != "") echo '<span class="tooltiptext">'.$priErr.'</span>';?>
 								</div>
 							</div>
 							<p id="field">*All Fields Required</p>
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
-										<li><input type="submit" value="Contact Us"></li>
+										<li><input type="submit" value="Post Product"></li>
 									</ul>
 								</div>
 							</div>
@@ -207,9 +222,47 @@ session_start();
  * @param string $type, by default it shows abbreviations. 'abbrev', 'name' or 'mixed'
  * @return string
  */
+function StateDropdown($post=null, $type='abbrev', $stuff) {
+	$states = array(
+		array('$1.00', 'Alaska'),
+		array('$2.00', 'Alabama'),
+		array('$3.00', 'Arkansas'),
+		array('$4.00', 'Arizona'),
+		array('$5.00', 'California'),
+		array('$6.00', 'Colorado'),
+		array('$7.00', 'Connecticut'),
+		array('$8.00', 'District of Columbia'),
+		array('$9.00', 'Delaware'),
+		array('$10.00', 'Florida'),
+		array('$11.00', 'Georgia'),
+		array('$12.00', 'Hawaii'),
+		array('$13.00', 'Iowa'),
+		array('$14.00', 'Idaho'),
+		array('$15.00', 'Illinois'),
+	);
+
+	$options = '<option value="" disabled selected>Price</option>';
+
+	foreach ($states as $statef) {
+		if ($type == 'abbrev') {
+			$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
+        } 
+		elseif($type == 'name') {
+			$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
+		}
+		elseif($type == 'mixed') {
+			$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
+		}
+	}
+
+	echo $options;
+}
 
 
 
-
-
+function check_select($i, $m)
+{
+	if($i == $m)
+		return 'selected="selected"';
+}
 ?>

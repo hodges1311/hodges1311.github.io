@@ -118,7 +118,7 @@ session_start();
 						</div>';
 					else
 						echo '
-						<div class="6u 12u(narrower)">
+						<div class="6u 12u(narrower)" style="height: 596.48px;">
 							<section class="box special">
 								<span class="image featured"><img src="images/papers.jpeg" alt="" width="450" height="322"></span>
 								<h3>Buy our Quality Paper Here!</h3>
@@ -135,7 +135,7 @@ session_start();
 								</ul>
 							</section>
 						</div>
-						<div class="6u 12u(narrower)">
+						<div class="6u 12u(narrower)" style="height: 596.48px;">
 							<section class="box special">
 								<span class="image featured"><img src="images/plane1.jpg" alt="" width="450" height="322"></span>
 								<h3>Visit our MarketPlace!</h3>

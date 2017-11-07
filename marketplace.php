@@ -38,7 +38,8 @@ session_start();
 <!-- Banner -->
 	<section class= "box special" id="banner" style="padding: 5em 0 5em 0">
 		<h2>FlyBy</h2>
-		<p>Quality paper aircraft to conquer the skies</p>
+		Quality paper aircraft to conquer the skies<br>
+		<?php if($_SESSION["user"] != "") echo '<a href="posting.php" class ="button">Post Your Product</a>';?>
 	</section>
 	
 	<body class="landing">
@@ -65,23 +66,36 @@ session_start();
 			<!-- Main -->
 				<section class="container">
 					<div class="row">
-						<div class="6u 12u(narrower)">
-							<section class="box special">
-								<span class="image featured"><img src="images/papers.jpeg" alt="" width="450" height="322"></span>
-								<h3>Paper</h3>
-								<p>This is our highest qualtiy construction paper for use in all of your crafting needs</p>
+					<?php
+					$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+					$username = "root"; //default is root
+					$serverpassword= ""; //default is none
+					$databasename = "mysql";
+					$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+
+					while ($row = mysqli_fetch_assoc($result)) {
+						echo'
+						<div class="6u 12u(narrower)" style="height: 596.48px;">
+							<section class="box special" style="height: 596.48px;">
+								<span class="image featured"><img src="'.$row["imgsrc"].'" alt="" width="450" height="322"></span>
+								<h3>'.$row["item"].'</h3>
+								'.$row["des"].'<br>
+								'.$row["price"].'
 								<ul class="actions">
 									<li>
 										<form action="https://test.bitpay.com/checkout" method="post" >
 											<input type="hidden" name="action" value="checkout" />
 											<input type="hidden" name="posData" value="" />
-											<input type="hidden" name="data" value="kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbZfG4Vju9kiSGJPYG2CFs3me9DORD4bWhQBZNjbM2+ZnId9IGh70nJTGB0+bq92+zmplvIR/XmALCOhBwxQdFSjGyEHJbjZCRX0DF7Ob8LZN+EzZ1iDzrCR38ooEZ2QKP" />
+											<input type="hidden" name="data" value="'.$row["data"].'" />
 											<input type="image" src="https://test.bitpay.com/img/button-large.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
 										</form>
 									</li>
 								</ul>
 							</section>
-						</div>
+						</div>';
+					}
+					mysqli_close($conn);
+					?>
 					</div>
 				</section>
 	
