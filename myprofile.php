@@ -1,5 +1,11 @@
 <?php
 session_start();
+if($_SESSION["user"] == NULL)
+{
+$_SESSION["redirect"] = "marketplace";
+header("Location: login.php");
+}
+
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -7,6 +13,31 @@ session_start();
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #6358CB;
+    color: white;
+}
+</style>
+
 <html>
 	<head>
 		<title>FlyBy</title>
@@ -22,7 +53,6 @@ session_start();
 	<section id="banner" style="padding: 10em 0 10em 0">
 		<h2>FlyBy</h2>
 		<p>Quality paper aircraft to conquer the skies</p>
-		<?php if($_SESSION["user"] != "") echo '<a href="update_profile.php" class ="button">Update Profile</a>';?>
 	</section>
 
 	<body class="landing">
@@ -33,14 +63,14 @@ session_start();
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
+							<?php if($_SESSION["user"] != NULL) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
+							<?php if($_SESSION["user"] == NULL) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if($_SESSION["user"] == NULL) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if($_SESSION["user"] != NULL) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
+							<?php if($_SESSION["user"] != NULL) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
@@ -52,58 +82,59 @@ session_start();
 
 					<section class="box special">
 						<header class="major">
-							<h2>What is FlyBy?
+							<h2><?php echo "Welcome, {$_SESSION["user"]}!" ?>
 							</h2>
-							<p>We offer a simple, easy-to-use platform for the buying and selling of paper
-							aircraft designs. FlyBy strives to simultaneously protect our user's intellectual
-							rights and to facilitate their product distribution. Just as our slogan suggests,
-							we want to empower our users so that their creativity can take them to new heights
-							and they can conquer the friendly skies.
+							<p>This is your own Profile page, where you can edit your information, get FlyBy news, and keep up to date with your posts.
+							Happy Flying!
 							</p>
+							<ul class="actions">
+							<li><a href="update_profile.php" class="button">Edit My Profile</a></li>
+							</ul>
 						</header>
-						<span class="image featured">
-							<span>
-								<img class="resize" style="display: inline-block;" src="images/plane1.jpg" alt="">
-							</span>
-						</span>
 					</section>
 				</div>
-				<div>
 				<section class="container">
-
-					<section class="box special">
-						<header class="major">
-							<h2>Our Mission Statement
-							</h2>
-							<p>Here at FlyBy, we want encourage creativity and community by allowing
-							the continued creation of high quality paper planes. From enthusiasts to
-							young children and passersby, FlyBy is meant to be accessible for everyone
-							and tries to offer a wide variety of crafts</p>
-						</header>
-						<span class="image featured">
-							<img align="middle" style="display: inline-block;" class="resize" src="images/plane2.jpg" alt="" />
-						</span>
-					</section>
-				</div>
-
 				<div>
-				<section class="container">
-					<section class="box special">
-						<header class="major">
-							<h2>Buying and Selling
-							</h2>
-							<p>All users are able to submit designs through our website and able to
-							fully control their product's prices. Addtionally, by utilitizing our website
-							we can assist you in protecting your intellectual rights.
-							</p>
-						</header>
-						<span class="image featured">
-							<img align="middle" style="display: inline-block;" class="resize" src="images/plane3.jpg" alt="" /></span>
-					</section>
+				<?php
+				$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+				$username = "root"; //default is root
+				$serverpassword= ""; //default is none
+				$databasename = "mysql";
+	
+				$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+	
+				if ($conn->connect_error) {
+					die("Connection failed: " . $conn->connect_error);
+				}
+	
+				$user  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$_SESSION["user"]}'";
+				$result = mysqli_query($conn, $user);
+				$row = mysqli_fetch_assoc($result);
+				?>
+				
+				<table id="customers">
+					  <tr>
+						<th>User Name</th>
+						<th><?php echo $_SESSION["user"]?></th>
+					  </tr>
+					  <tr>
+						<td>Name</td>
+						<td><?php echo $row["name"];?></td>
+					  </tr>
+					  <tr>
+						<td>Email</td>
+						<td><?php echo $row["email"];?></td>
+					  </tr>
+					  <tr>
+						<td>Address</td>
+						<td><?php echo $row["address"].", ".$row["city"].", ".$row["state"]." ".$row["zipcode"];?></td>
+					  </tr>
+				</table>
 				</div>
+				</section>
 			<!-- CTA -->
 			<?php
-			if($_SESSION["user"] == "") echo '
+			if($_SESSION["user"] == NULL) echo '
 				<section id="cta" style="padding: 1em 0 1em 0;">
 					<h2 style="margin: 0 0 0 0;">Sign up Here!</h2>
 					<p style="margin: 0 0 1em 0;">Join our flying community.</p>
