@@ -28,16 +28,30 @@ session_start();
 	require 'PHPMailer/src/Exception.php';
 	require 'PHPMailer/src/PHPMailer.php';
 	require 'PHPMailer/src/SMTP.php';
-  $user = $_SESSION['user'];
-  $name = $_SESSION['name'];
-  $email = $_SESSION['email'];
+	$user = $_SESSION['user'];
+	$name = $_SESSION['name'];
+	$email = $_SESSION['email'];
 
 	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
-  $add = $_SESSION["add"];
-  $city = $_SESSION["city"];
-  $zip = $_SESSION['zip'];
-  $state = $_SESSION['state'];
-  $pass = $passc = "";
+	$pass = $passc = "";
+	
+	$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+	$username = "root"; //default is root
+	$serverpassword= ""; //default is none
+	$databasename = "mysql";
+
+	$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	
+	$user  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$_SESSION["user"]}'";
+	$result = mysqli_query($conn, $user);
+	$row1 = mysqli_fetch_assoc($result);
+	
+	
+	mysqli_close($conn);
 
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
@@ -220,43 +234,43 @@ session_start();
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($userErr != "") echo 'tooltip'; ?>">
 									Username
-									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $user?>" placeholder="Username" disabled="true">
+									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $row1["username"];?>" placeholder="Username" disabled="true">
 									<?php if($userErr != "") echo '<span class="tooltiptext">'.$userErr.'</span>';?>
 								</div>
 								<div class="6u 12u(mobilep) <?php if($emailErr != "") echo 'tooltip'; ?>">
 									Email
-									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email" disabled="true">
+									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $row1["email"];?>" placeholder="Email" disabled="true">
 									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
 									Name
-									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $name?>" placeholder="Name">
+									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $row1["name"];?>" placeholder="Name">
 									<?php if($nameErr != "") echo '<span  class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($addErr != "") echo 'tooltip'; ?>">
 									Address
-									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $add?>" placeholder="Address">
+									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $row1["address"];?>" placeholder="Address">
 									<?php if($addErr != "") echo '<span  class="tooltiptext">'.$addErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($cityErr != "") echo 'tooltip'; ?>">
 									City
-									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $city?>" placeholder="City">
+									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $row1["city"];?>" placeholder="City">
 									<?php if($cityErr != "") echo '<span class="tooltiptext">'.$cityErr.'</span>';?>
 								</div>
 								<div class="4u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
 									Zip Code
-									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $zip?>" placeholder="Zip-Code">
+									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $row1["zipcode"];?>" placeholder="Zip-Code">
 									<?php if($zipErr != "") echo '<span class="tooltiptext">'.$zipErr.'</span>';?>
 								</div>
 								<div class="2u 12u(mobilep) <?php if($stateErr != "") echo 'tooltip'; ?>">
 									State
-									<select id="<?php if($stateErr != "") echo 'error'; ?>" name="state" id="state"><?php echo StateDropdown(null, 'abbrev', $state); ?></select>
+									<select id="<?php if($stateErr != "") echo 'error'; ?>" name="state" id="state"><?php echo StateDropdown(null, 'abbrev', $row1["state"]); ?></select>
 									<?php if($stateErr != "") echo '<span class="tooltiptext">'.$stateErr.'</span>';?>
 								</div>
 							</div>
