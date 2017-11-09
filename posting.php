@@ -43,11 +43,11 @@ session_start();
 			$item = test_input($_POST["item"]);
 			if (!preg_match("/^[a-zA-Z\d ]*$/",$item))
 			{
-				$nameErr = "Only letters, digits, and white space allowed for Name";
+				$itemErr = "Only letters, digits, and white space allowed for Item";
 			}
 			if(strlen($item) > 40)
 			{
-				$userErr = "Item Names can only be 20 Characters Long";
+				$itemErr = "Item Names can only be 20 Characters Long";
 			}
 		}
 
@@ -67,7 +67,7 @@ session_start();
 		else
 		{
 			$des = test_input($_POST["des"]);
-			if (!preg_match("/^[a-zA-Z\d \' \. \, \" \: \; \? \- \! \s ]*$/",$body) || strlen($body) < 1)
+			if (!preg_match("/^[a-zA-Z\d \' \. \, \" \: \; \? \- \! \s ]*$/",$des) || strlen($des) < 1)
 			{
 				$desErr = "Description must only contain alphanumerical characters and punctuation";
 			}
@@ -95,7 +95,7 @@ session_start();
 			die("Connection failed: " . $conn->connect_error);
 		}
 
-		if($nameErr == "" && $emailErr == "" && $infoErr == ""){
+		if($itemErr == "" && $imgErr == "" && $desErr == "" && $priErr == ""){
 			$sql = "INSERT INTO marketplace (item, imgsrc, des, price, data, owner) VALUES ('$item', '$img', '$des', '$pri', '$data', '$owner')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
 			if ($result) { //checks your query
@@ -103,7 +103,7 @@ session_start();
 				header("Location: marketplace.php");
 			}
 			else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				$itemErr = "Item with that Name Already Exists.";
 			}
 		}
 		mysqli_close($conn);

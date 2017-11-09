@@ -143,7 +143,7 @@ function test_input($data)
 					<?php if($mp == "signout") echo '<br><body>You Have Been Signed Out.</body>';?>
 				</header>
 					<div class="box">
-						<form method="post" action="#">
+						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 							<div class="row uniform 50%">
 								<div class="12u <?php if($userErr != "") echo 'tooltip'; ?>">
 									Username

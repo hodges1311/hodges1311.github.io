@@ -75,8 +75,8 @@ session_start();
 
 					while ($row = mysqli_fetch_assoc($result)) {
 						echo'
-						<div class="6u 12u(narrower)" style="height: 596.48px;">
-							<section class="box special" style="height: 596.48px;">
+						<div class="6u 12u(narrower)" style="height: 650px; width: 550px;">
+							<section class="box special" style="height: 650px;">
 								<span class="image featured"><img src="'.$row["imgsrc"].'" alt="" width="450" height="322"></span>
 								<h3>'.$row["item"].'</h3>
 								'.$row["des"].'<br>
