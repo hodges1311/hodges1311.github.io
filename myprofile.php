@@ -110,6 +110,7 @@ header("Location: login.php");
 				$user  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$_SESSION["user"]}'";
 				$result = mysqli_query($conn, $user);
 				$row = mysqli_fetch_assoc($result);
+				mysqli_close($conn);
 				?>
 				
 				<table id="customers">
