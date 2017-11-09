@@ -13,7 +13,7 @@ session_start();
 		
 	</head>
 	<?php
-	if($_SESSION["user"] == "")
+	if(!isset($_SESSION["user"]))
 	{
 		$_SESSION["redirect"] = "marketplace";
 		header("Location: login.php");
@@ -39,7 +39,7 @@ session_start();
 	<section class= "box special" id="banner" style="padding: 5em 0 5em 0">
 		<h2>FlyBy</h2>
 		Quality paper aircraft to conquer the skies<br>
-		<?php if($_SESSION["user"] != "") echo '<a href="posting.php" class ="button">Post Your Product</a>';?>
+		<?php if(isset($_SESSION["user"])) echo '<a href="posting.php" class ="button">Post Your Product</a>';?>
 	</section>
 	
 	<body class="landing">
@@ -50,14 +50,14 @@ session_start();
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>

@@ -24,18 +24,18 @@ session_start();
 	<?php
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
-
+	
 	require 'PHPMailer/src/Exception.php';
 	require 'PHPMailer/src/PHPMailer.php';
 	require 'PHPMailer/src/SMTP.php';
-	$mp ="";
+
+	$mp = "";
 	if($_SESSION["redirect"] != NULL)
 		$mp = $_SESSION["redirect"];
-	if($_SESSION["user"] != "")
+	if(isset($_SESSION["user"]))
 		$mp = "signout";
 	session_unset();
-	$_SESSION["user"] = "";
-
+	
 	$mail = new PHPMailer;
 	$mail->IsSMTP();
 	$mail->Host = 'smtp.gmail.com';
@@ -139,7 +139,7 @@ session_start();
 				$userErr = "Username can only be 20 Characters Long";
 			}
 		}
-
+		
 		if(empty($_POST["pass"])) {
 			$passErr = "Password Required";
 		}
@@ -161,18 +161,18 @@ session_start();
 		if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
 			$passErr = "Passwords Do Not Match";
 		}
-
+		
 		$servername = "localhost"; //local machine, the port on which the mySQL server runs on
 		$username = "root"; //default is root
 		$serverpassword= ""; //default is none
 		$databasename = "mysql";
 
 		$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-
+		
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
 		}
-
+		
 		$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
 		$result = mysqli_query($conn, $check);
 		$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
@@ -183,7 +183,7 @@ session_start();
 		if(mysqli_num_rows($result2) >=1){
 			$userErr = "Username is already taken.";
 		}
-
+		
 		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
 			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
@@ -197,14 +197,14 @@ session_start();
 				if(!$mail->send()) {
 					echo 'Message was not sent.';
 					echo 'Mailer error: ' . $mail->ErrorInfo;
-				}
+				} 
 				else {
 					echo 'Message has been sent.';
 				}
 				$_SESSION["user"] = $user;
 				$_SESSION["name"] = $name;
 				header("Location: success.php");
-			}
+			} 
 			else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
@@ -227,14 +227,14 @@ session_start();
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
@@ -419,7 +419,7 @@ function StateDropdown($post=null, $type='abbrev', $stuff) {
 	foreach ($states as $statef) {
 		if ($type == 'abbrev') {
 			$options .= '<option value="'.$statef[0].'" '. check_select($stuff, $statef[0]) .' >'.$statef[0].'</option>'."\n";
-        }
+        } 
 		elseif($type == 'name') {
 			$options .= '<option value="'.$statef[1].'" '. check_select($stuff, $statef[1]) .' >'.$statef[1].'</option>'."\n";
 		}

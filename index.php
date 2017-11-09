@@ -25,14 +25,14 @@ session_start();
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
@@ -41,12 +41,12 @@ session_start();
 				<section id="banner">
 					<h2>FlyBy</h2>
 					<p>Quality paper aircraft to conquer the skies</p>
-					<?php if($_SESSION["user"] != "") echo '<p>Welcome Back, '.$_SESSION["name"].'!</p>';?>
+					<?php if(isset($_SESSION["user"])) echo '<p>Welcome Back, '.$_SESSION["name"].'!</p>';?>
 					<ul class="actions">
-						<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button special">Sign Up</a></li>';?>
-						<?php if($_SESSION["user"] == "") echo '<li><a href="about.php" class="button">About Us</a></li>';?>
-						<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button special">Your Profile</a></li>';?>
-						<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php" class="button">MarketPlace</a></li>';?>
+						<?php if(!isset($_SESSION["user"])) echo '<li><a href="signup.php" class="button special">Sign Up</a></li>';?>
+						<?php if(!isset($_SESSION["user"])) echo '<li><a href="about.php" class="button">About Us</a></li>';?>
+						<?php if(isset($_SESSION["user"])) echo '<li><a href="myprofile.php" class ="button special">Your Profile</a></li>';?>
+						<?php if(isset($_SESSION["user"])) echo '<li><a href="marketplace.php" class="button">MarketPlace</a></li>';?>
 					</ul>
 				</section>
 
@@ -95,7 +95,7 @@ session_start();
 					</section>
 
 					<div class="row">
-					<?php if($_SESSION["user"] == "") echo '
+					<?php if(!isset($_SESSION["user"])) echo '
 						<div class="6u 12u(narrower)">
 							<section class="box special">
 								<span class="image featured"><img src="images/plane2.jpg" alt="" width="450" height="322"></span>
@@ -151,7 +151,7 @@ session_start();
 				</section>
 
 			<!-- CTA -->
-			<?php if($_SESSION["user"] == "") echo '
+			<?php if(!isset($_SESSION["user"])) echo '
 				<section id="cta" style="padding: 1em 0 1em 0;">
 					<h2 style="margin: 0 0 0 0;">Want to know more?</h2>
 					<p style="margin: 0 0 1em 0;">Read the About Us Section!</p>

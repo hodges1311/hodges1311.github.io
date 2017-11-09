@@ -18,7 +18,7 @@ session_start();
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 <?php
-	if($_SESSION["user"] == "")
+	if(!isset($_SESSION["user"]))
 	{
 		$_SESSION["redirect"] = "marketplace";
 		header("Location: login.php");
@@ -79,6 +79,7 @@ session_start();
 		else
 		{
 			$data = test_input($_POST["price"]);
+			$pri = test_input($_POST["make_text"]);
 		}
 		
 		$owner = $_SESSION["user"];
@@ -123,14 +124,14 @@ session_start();
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="login.php" class="button">Log In</a></li>';?>
-							<?php if($_SESSION["user"] == "") echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
-							<?php if($_SESSION["user"] != "") echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
@@ -167,10 +168,16 @@ session_start();
 								</div>
 								<div class="2u 12u(mobilep) <?php if($priErr != "") echo 'tooltip'; ?>">
 									Price
-									<select id="<?php if($PriErr != "") echo 'error'; ?>" name="price" id="price"><?php echo StateDropdown(null, 'mixed', $pri); ?></select>
+									<select id="<?php if($PriErr != "") echo 'error'; ?>" name="price" id="price" onchange="setTextField(this)"><?php echo StateDropdown(null, 'mixed', $pri); ?></select>
 									<?php if($priErr != "") echo '<span class="tooltiptext">'.$priErr.'</span>';?>
 								</div>
 							</div>
+							<input id="make_text" type = "hidden" name = "make_text" value = "" />
+							<script type="text/javascript">
+							function setTextField(ddl) {
+								document.getElementById('make_text').value = ddl.options[ddl.selectedIndex].text;
+							}
+							</script>
 							<p id="field">*All Fields Required</p>
 							<div class="row uniform">
 								<div class="12u">
@@ -224,21 +231,21 @@ session_start();
  */
 function StateDropdown($post=null, $type='abbrev', $stuff) {
 	$states = array(
-		array('$1.00', 'Alaska'),
-		array('$2.00', 'Alabama'),
-		array('$3.00', 'Arkansas'),
-		array('$4.00', 'Arizona'),
-		array('$5.00', 'California'),
-		array('$6.00', 'Colorado'),
-		array('$7.00', 'Connecticut'),
-		array('$8.00', 'District of Columbia'),
-		array('$9.00', 'Delaware'),
-		array('$10.00', 'Florida'),
-		array('$11.00', 'Georgia'),
-		array('$12.00', 'Hawaii'),
-		array('$13.00', 'Iowa'),
-		array('$14.00', 'Idaho'),
-		array('$15.00', 'Illinois'),
+		array('$1.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lb1HnNvw1LR1nXtbQcDcWgE4jAQpYUTOQTlbye+xVole90WBKef4Bel670E8RMQJAmFO9QeVcqZkEZsmnVqPexs5EHkYJJ4uI9s/qJp2iAneXJVLFeeRnjI3ga/ZMDyj2c'),
+		array('$2.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbyDkdX5b6B/uwJl4YmLOgM6fGTQaQgSYR5Luo/FjXmSNzY7kSXMvhNmrNjOsxVSkVEC8ncMHQRoqJuYAUHyT93avngWwKVCmFjMbz7FnNjgP6rwCM+StN7f/ru+3/aDIb'),
+		array('$3.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbRLqVXr32lU62L0d5LFoWpodT8GSXsm3mn6u1ys2nRuDi16Lu1338MtfA/F2JV9KojMhWGlpC7y0QMj+b16k4phwjHEi8CFLm2MftToQjVLZ2BJRzDsJhIU0EGKj8ZnVY'),
+		array('$4.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lb+SujLndPLGLwefQWEzDk8YGyRLHvp1SWgNa5ZDbvXICS8ZsiPuKaEIM57dWjwDJUrQ23dnQOTAZctJrkRpx7In8UTmhxAQnOQonnSpknfXZ+izUsyecmWFbWLrJ+DmZC'),
+		array('$5.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbbHNAN2Do2GQiOHkVky8iX1hvwPCB7g6tUHSCzBd6vgAGufgSfHwmrtbPX2CDmVw7Plu1T1PsEDvDKsIixf++BmxEm1I7YOcRwBNtTTcp0u8/6eqpf83rQvvejMwaSn2W'),
+		array('$6.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lb3FbI1z3vw6CI00s+6kblQrte9+tPv3Aj1grVfWfwzpJKtanbiLVslWpmsZ1V8oQVXNpeefErNM8pzysEs2fDEStU5MaW5plWfrwJTtieUj0UJbz+WvBHCmHVXX4WucEh'),
+		array('$7.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbQ8HThRI9Z8CxQJSR/GyqGuJcF3/09RXNGhzURe9Muwv42g/2rIO2OT94e43YvElPDNVPgUewXakT9O6gLEee82UdNmQCET166GWcdTcizqnKI4wgjpkdH3zI1pLzcJ9N'),
+		array('$8.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbPfpGgFCStCrZ8HpabYIiWekub23n0FM9vrkbFKjBAM7KCU2F1SRm/wbXMQmyRyT9iBmwZnve1ZIoncxHS/rHkGx1p6N8fAzA/gL1FOvBV8H845ShWiLfYwhLZgI6cZ6F'),
+		array('$9.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lbvd3llrbOTJ2i8RVV7Oriewai4GXouo3dm/KJ0p0fy3u+wx2D2SeM8JaSJdwEY3+9yiWGREplrOBz0ArPJA1UDkDUw7JnqkGkvCC2rGTk9T0HiM3KACXmmOoKJTJ/0p+N'),
+		array('$10.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lb2juFKuDiLNoVhbRoHs7DhBNybAPONY+PM4DUUCOcSmmN9wE5BcuZTwBOlmHYqix8S6QNFGTYgTexlaI2vjkN73SFGbs7nhGFvB6mcSN04n8RLd1yiLtUoUq/CiS5FoPz'),
+		array('$11.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lb0nEh4h8XSSGKYw/4VVJf/8BTLtaBz04jDY8mn2/avcoHKjgi1eoKUnYkrwR0izE5DgG56fGYA77divFMpA+jIISfhbzhJIa7G5Z9WTbBlC6piNb66LVSkoGu8rocwpsW'),
+		array('$12.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbiJVSF8ySAHymg0i4QJ3cJspj8heLHOjz/ONJ8SXODEJwMW18wnLtC2pg5S5fvC6E/MkT2GW2/DBWELMrYzvJA2uUAQhh9CQyhr/TC/WRqyEzXUtzk4BSdcWqHNLZQZWv'),
+		array('$13.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbJKkZQzicbZQjdfzQ0ls+sio+yTMncyS2OighLen8CtbtFNJc+tx4eP7pKStCjZ1n2pixbEmePXUPMewiU8LvqLgAoTc/74yCCpk1PXKPor6kw4/M4gyKh+dQ5hrt67/f'),
+		array('$14.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57LbsQTDk+7C5s6rN0LI/gDsLkm17k7wQnZwM7u4hMgcajjgK2emzYKhHXsynrVMBh+IIv83AQa+Jwo0h1FBTb+WVnXDvGUXqTM5gzM0UeXClVIsTAY6Dwa8zhgVm0mZwqo6'),
+		array('$15.00', 'kZt1T4IINMspivqs+QHhhAq8cG0RoSdeuLtVpXz+aRka+Ve4Elc15SV5XK8a57Lb9ic6sQ5vTrfsc4kQzyeYiNTYZ91JpRQbCruvHH6xGMm9P7ahs6gsObU6X4yln0K16KeaTfsO8wMwxOv0Go0IGmehqfY6B5+dZEBX9FZVw3qtV0JEmoU5zjwz4Iq+Vl9f'),
 	);
 
 	$options = '<option value="" disabled selected>Price</option>';

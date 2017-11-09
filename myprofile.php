@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION["user"] == NULL)
+if(!isset($_SESSION["user"]))
 {
 $_SESSION["redirect"] = "marketplace";
 header("Location: login.php");
@@ -63,14 +63,14 @@ header("Location: login.php");
 					<h1><a href="index.php">FlyBy</h1>
 					<nav id="nav">
 						<ul>
-							<?php if($_SESSION["user"] != NULL) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="marketplace.php">MarketPlace</a></li>';?>
 							<li><a href="index.php">Home</a></li>
 							<li><a href="about.php">About Us</a></li>
 							<li><a href="contact.php">Contact Us</a></li>
-							<?php if($_SESSION["user"] == NULL) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
-							<?php if($_SESSION["user"] == NULL) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
-							<?php if($_SESSION["user"] != NULL) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
-							<?php if($_SESSION["user"] != NULL) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="login.php" class="button">Log In</a></li>';?>
+							<?php if(!isset($_SESSION["user"])) echo '<li><a href="signup.php" class="button">Sign Up</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="myprofile.php" class ="button">Your Profile</a></li>';?>
+							<?php if(isset($_SESSION["user"])) echo '<li><a href="signout.php" class ="button">Sign Out</a></li>';?>
 						</ul>
 					</nav>
 				</header>
@@ -134,7 +134,7 @@ header("Location: login.php");
 				</section>
 			<!-- CTA -->
 			<?php
-			if($_SESSION["user"] == NULL) echo '
+			if(!isset($_SESSION["user"])) echo '
 				<section id="cta" style="padding: 1em 0 1em 0;">
 					<h2 style="margin: 0 0 0 0;">Sign up Here!</h2>
 					<p style="margin: 0 0 1em 0;">Join our flying community.</p>
