@@ -2027,10 +2027,10 @@
 		width: 100%;
 	}
 	
-	input#error,select#error{
+	input#error,select#error,textarea#error{
 		border-color: #ff7f7f;
 	}
-	input#error:focus,select#error:focus{
+	input#error:focus,select#error:focus,textarea#error:focus{
 		border-color: #ff7f7f;
 		box-shadow: 0 0 0 2px #ff7f7f;
 	}
