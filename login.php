@@ -23,14 +23,14 @@ session_start();
 	$passErr = "";
 	$userErr = "";
 	$mp = "";
-	
+
 	if($_SESSION["redirect"] != NULL)
 		$mp = $_SESSION["redirect"];
 	if($_SESSION["user"] != "")
 		$mp = "signout";
 	session_unset();
 	$_SESSION["user"] = "";
-	
+
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	if(empty($_POST["username"]))
@@ -56,21 +56,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	elseif(strlen($_POST["pass"]) > 72) {
 		$passErr = "Password Cannot be more than 72 Characters";
 	}
-	
+
 	$servername = "localhost"; //local machine, the port on which the mySQL server runs on
 	$username = "root"; //default is root
 	$serverpassword= ""; //default is none
 	$databasename = "mysql";
-	
+
 	$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-	
+
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-		
+
 	$check  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
 	$result = mysqli_query($conn, $check);
-	
+
 	if(mysqli_num_rows($result) >= 1){
 		$userErr = "";
 	}
@@ -78,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		$userErr = "No user by that Name";
 	}
-		
+
 	if($userErr == "" && $passErr == ""){
 		if ($result) {
 			$row = mysqli_fetch_assoc($result);
@@ -88,13 +88,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 				$passErr = "";
 				$_SESSION["user"] = $row["username"];
 				$_SESSION["name"] = $row["name"];
+				$_SESSION["email"] = $row["email"];
+				$_SESSION["add"] = $row["address"];
+				$_SESSION["city"] = $row["city"];
+				$_SESSION['zip'] = $row['zipcode'];
+				$_SESSION['state'] = $row['state'];
+				
 				header("Location: index.php");
 			}
 			else
 			{
 				$passErr = "Incorrect Password";
 			}
-		} 
+		}
 		else {
 			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
@@ -110,8 +116,8 @@ function test_input($data)
 		return $data;
 	}
 ?>
-	
-	
+
+
 <!-- Banner -->
 	<body>
 		<div id="page-wrapper">

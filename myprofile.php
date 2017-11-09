@@ -22,6 +22,7 @@ session_start();
 	<section id="banner" style="padding: 10em 0 10em 0">
 		<h2>FlyBy</h2>
 		<p>Quality paper aircraft to conquer the skies</p>
+		<?php if($_SESSION["user"] != "") echo '<a href="update_profile.php" class ="button">Update Profile</a>';?>
 	</section>
 
 	<body class="landing">

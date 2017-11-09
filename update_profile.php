@@ -28,24 +28,16 @@ session_start();
 	require 'PHPMailer/src/Exception.php';
 	require 'PHPMailer/src/PHPMailer.php';
 	require 'PHPMailer/src/SMTP.php';
-	$mp ="";
-	if($_SESSION["redirect"] != NULL)
-		$mp = $_SESSION["redirect"];
-	if($_SESSION["user"] != "")
-		$mp = "signout";
-	session_unset();
-	$_SESSION["user"] = "";
-
-	$mail = new PHPMailer;
-	$mail->IsSMTP();
-	$mail->Host = 'smtp.gmail.com';
-	$mail->Port = 587;
-	$mail->Username = 'flybycorporate@gmail.com';
-	$mail->Password = 'DummyPassword2';
-	$mail->SMTPAuth = true;
+  $user = $_SESSION['user'];
+  $name = $_SESSION['name'];
+  $email = $_SESSION['email'];
 
 	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
-	$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
+  $add = $_SESSION["add"];
+  $city = $_SESSION["city"];
+  $zip = $_SESSION['zip'];
+  $state = $_SESSION['state'];
+  $pass = $passc = "";
 
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
@@ -173,36 +165,12 @@ session_start();
 			die("Connection failed: " . $conn->connect_error);
 		}
 
-		$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
-		$result = mysqli_query($conn, $check);
-		$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
-		$result2 = mysqli_query($conn, $check2);
-		if(mysqli_num_rows($result) >= 1) {
-			$emailErr = "Email is already in use. Have you Signed up before?";
-		}
-		if(mysqli_num_rows($result2) >=1){
-			$userErr = "Username is already taken.";
-		}
-
 		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
-			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
+			$sql = "UPDATE siteCustomers set name = '$name', email = '$email', address = '$add', city = '$city', state = '$state', zipcode = '$zip', password = '$pass' WHERE username = '$user'"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
 			echo "'<script>console.log(\"\")</script>'";
 			if ($result) { //checks your query
 				echo "New record created successfully";
-				$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
-				$mail->addAddress($email);
-				$mail->Subject  = 'Welcome to FlyBy';
-				$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
-				if(!$mail->send()) {
-					echo 'Message was not sent.';
-					echo 'Mailer error: ' . $mail->ErrorInfo;
-				}
-				else {
-					echo 'Message has been sent.';
-				}
-				$_SESSION["user"] = $user;
-				$_SESSION["name"] = $name;
 				header("Location: success.php");
 			}
 			else {
@@ -244,21 +212,20 @@ session_start();
 				<div>
 				<section id="main" class="container 75%">
 				<header>
-					<h2>Sign Up</h2>
-					<p>Join our flying club and start buying/selling today!</p>
-					<?php if($mp == "signout") echo '<br><body>You Have Been Signed Out.</body>';?>
+					<h2>Update Profile</h2>
+					<p>Edit your profile information!</p>
 				</header>
 					<div class="box">
 						<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($userErr != "") echo 'tooltip'; ?>">
 									Username
-									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $user?>" placeholder="Username">
+									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $user?>" placeholder="Username" disabled="true">
 									<?php if($userErr != "") echo '<span class="tooltiptext">'.$userErr.'</span>';?>
 								</div>
 								<div class="6u 12u(mobilep) <?php if($emailErr != "") echo 'tooltip'; ?>">
 									Email
-									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email">
+									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $email ?>" placeholder="Email" disabled="true">
 									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
@@ -311,7 +278,7 @@ session_start();
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
-										<li><input type="submit" value="Sign Up"></li>
+										<li><input type="submit" value="Update Info"></li>
 									</ul>
 								</div>
 							</div>
