@@ -30,7 +30,7 @@ session_start();
 	require 'PHPMailer/src/SMTP.php';
 
 	$mp = "";
-	if($_SESSION["redirect"] != NULL)
+	if(isset($_SESSION["redirect"]))
 		$mp = $_SESSION["redirect"];
 	if(isset($_SESSION["user"]))
 		$mp = "signout";

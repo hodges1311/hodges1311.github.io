@@ -1,6 +1,12 @@
 <?php
 session_start();
+if(!isset($_SESSION["user"]))
+{
+	$_SESSION["redirect"] = "profile";
+	header("Location: login.php");
+}
 ?>
+
 <!DOCTYPE HTML>
 <!--
 	Alpha by HTML5 UP
@@ -29,8 +35,6 @@ session_start();
 	require 'PHPMailer/src/PHPMailer.php';
 	require 'PHPMailer/src/SMTP.php';
 	$user = $_SESSION['user'];
-	$name = $_SESSION['name'];
-	$email = $_SESSION['email'];
 
 	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
 	$pass = $passc = "";
@@ -46,9 +50,9 @@ session_start();
 		die("Connection failed: " . $conn->connect_error);
 	}
 	
-	$user  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$_SESSION["user"]}'";
-	$result = mysqli_query($conn, $user);
-	$row1 = mysqli_fetch_assoc($result);
+	$query  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$_SESSION["user"]}'";
+	$result = mysqli_query($conn, $query);
+	$row = mysqli_fetch_assoc($result);
 	
 	
 	mysqli_close($conn);
@@ -68,13 +72,13 @@ session_start();
 			}
 		}
 
-		if (empty($_POST["email"]))
+		if (empty($_POST["hidden2"]))
 		{
 			$emailErr = "Email is required";
 		}
 		else
 		{
-			$email = test_input($_POST["email"]);
+			$email = test_input($_POST["hidden2"]);
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 			{
 				$emailErr = "Invalid email format";
@@ -129,13 +133,13 @@ session_start();
 			}
 		}
 
-		if(empty($_POST["username"]))
+		if(empty($_POST["hidden1"]))
 		{
 			$userErr = "Username Required";
 		}
 		else
 		{
-			$user = test_input($_POST["username"]);
+			$user = test_input($_POST["hidden1"]);
 			if (!preg_match("/^[a-zA-Z0-9]*$/",$user))
 			{
 				$userErr = "Only letters & number allowed for Username";
@@ -185,7 +189,8 @@ session_start();
 			echo "'<script>console.log(\"\")</script>'";
 			if ($result) { //checks your query
 				echo "New record created successfully";
-				header("Location: success.php");
+				$_SESSION["redirect"] = "update";
+				header("Location: myprofile.php");
 			}
 			else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -234,43 +239,45 @@ session_start();
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($userErr != "") echo 'tooltip'; ?>">
 									Username
-									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $row1["username"];?>" placeholder="Username" disabled="true">
+									<input id="<?php if($userErr != "") echo 'error'; ?>" type="text" name="username" id="username" value="<?php echo $row["username"];?>" placeholder="Username" disabled="true">
+									<input type="hidden" name="hidden1" value="<?php echo $row["username"];?>">
 									<?php if($userErr != "") echo '<span class="tooltiptext">'.$userErr.'</span>';?>
 								</div>
 								<div class="6u 12u(mobilep) <?php if($emailErr != "") echo 'tooltip'; ?>">
 									Email
-									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $row1["email"];?>" placeholder="Email" disabled="true">
+									<input id="<?php if($emailErr != "") echo 'error'; ?>" type="text" name="email" id="email" value="<?php echo $row["email"];?>" placeholder="Email" disabled="false">
+									<input type="hidden" name="hidden2" value="<?php echo $row["email"];?>">
 									<?php if($emailErr != "") echo '<span class="tooltiptext">'.$emailErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($nameErr != "") echo 'tooltip'; ?>">
 									Name
-									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $row1["name"];?>" placeholder="Name">
+									<input id="<?php if($nameErr != "") echo 'error'; ?>" type="text" name="name" id="name" value="<?php echo $row["name"];?>" placeholder="Name">
 									<?php if($nameErr != "") echo '<span  class="tooltiptext">'.$nameErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="12u <?php if($addErr != "") echo 'tooltip'; ?>">
 									Address
-									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $row1["address"];?>" placeholder="Address">
+									<input id="<?php if($addErr != "") echo 'error'; ?>" type="text" name="address" id="address" value="<?php echo $row["address"];?>" placeholder="Address">
 									<?php if($addErr != "") echo '<span  class="tooltiptext">'.$addErr.'</span>';?>
 								</div>
 							</div>
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep) <?php if($cityErr != "") echo 'tooltip'; ?>">
 									City
-									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $row1["city"];?>" placeholder="City">
+									<input id="<?php if($cityErr != "") echo 'error'; ?>" type="text" name="city" id="city" value="<?php echo $row["city"];?>" placeholder="City">
 									<?php if($cityErr != "") echo '<span class="tooltiptext">'.$cityErr.'</span>';?>
 								</div>
 								<div class="4u 12u(mobilep) <?php if($zipErr != "") echo 'tooltip'; ?>">
 									Zip Code
-									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $row1["zipcode"];?>" placeholder="Zip-Code">
+									<input id="<?php if($zipErr != "") echo 'error'; ?>" type="text" name="zip" id="zip" value="<?php echo $row["zipcode"];?>" placeholder="Zip-Code">
 									<?php if($zipErr != "") echo '<span class="tooltiptext">'.$zipErr.'</span>';?>
 								</div>
 								<div class="2u 12u(mobilep) <?php if($stateErr != "") echo 'tooltip'; ?>">
 									State
-									<select id="<?php if($stateErr != "") echo 'error'; ?>" name="state" id="state"><?php echo StateDropdown(null, 'abbrev', $row1["state"]); ?></select>
+									<select id="<?php if($stateErr != "") echo 'error'; ?>" name="state" id="state"><?php echo StateDropdown(null, 'abbrev', $row["state"]); ?></select>
 									<?php if($stateErr != "") echo '<span class="tooltiptext">'.$stateErr.'</span>';?>
 								</div>
 							</div>

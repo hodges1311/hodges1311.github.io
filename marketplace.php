@@ -34,6 +34,14 @@ session_start();
 	$result = mysqli_query($conn, $sql); //does your query
 
 	mysqli_close($conn);
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_URL,'https://api.coindesk.com/v1/bpi/currentprice.json');
+	$temp = curl_exec($ch);
+
+	$content = json_decode($temp, true);
+	$rate = $content['bpi']['USD']['rate_float'];
 	?>
 <!-- Banner -->
 	<section class= "box special" id="banner" style="padding: 5em 0 5em 0">
@@ -62,7 +70,6 @@ session_start();
 					</nav>
 				</header>
 
-
 			<!-- Main -->
 				<section class="container">
 					<div class="row">
@@ -72,15 +79,18 @@ session_start();
 					$serverpassword= ""; //default is none
 					$databasename = "mysql";
 					$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-
-					while ($row = mysqli_fetch_assoc($result)) {
+					
+					while($row = mysqli_fetch_assoc($result)) {
+						$tobi = (float) (preg_replace('/[^A-Za-z0-9.\-]/', '', $row["price"]));
+						$tobi2 = round($tobi / $rate, 7);
 						echo'
-						<div class="6u 12u(narrower)" style="height: 650px; width: 550px;">
+						<div class="6u 12u(narrower)" style="height: 650px; width: 550px; padding: 0 0 690px 2em;">
 							<section class="box special" style="height: 650px;">
 								<span class="image featured"><img src="'.$row["imgsrc"].'" alt="" width="450" height="322"></span>
 								<h3>'.$row["item"].'</h3>
 								'.$row["des"].'<br>
-								'.$row["price"].'
+								'.$row["price"].'<br>
+								'.$tobi2.' BTC
 								<ul class="actions">
 									<li>
 										<form action="https://test.bitpay.com/checkout" method="post" >

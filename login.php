@@ -24,7 +24,7 @@ session_start();
 	$userErr = "";
 	$mp = "";
 
-	if($_SESSION["redirect"] != NULL)
+	if(isset($_SESSION["redirect"]))
 		$mp = $_SESSION["redirect"];
 	if(isset($_SESSION["user"]))
 		$mp = "signout";
@@ -141,6 +141,7 @@ function test_input($data)
 					<p>Access your account to buy and sell the best planes around!</p>
 					<?php if($mp == "marketplace") echo '<br><body>You must Login to View MarketPlace!</body>';?>
 					<?php if($mp == "signout") echo '<br><body>You Have Been Signed Out.</body>';?>
+					<?php if($mp == "profile") echo '<br><body>You must Login to View Profile.</body>';?>
 				</header>
 					<div class="box">
 						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

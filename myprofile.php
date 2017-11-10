@@ -2,9 +2,13 @@
 session_start();
 if(!isset($_SESSION["user"]))
 {
-$_SESSION["redirect"] = "marketplace";
+$_SESSION["redirect"] = "profile";
 header("Location: login.php");
 }
+$mp = "";
+if(isset($_SESSION["redirect"]))
+	$mp = $_SESSION["redirect"];
+unset($_SESSION["redirect"]);
 
 ?>
 <!DOCTYPE HTML>
@@ -87,10 +91,10 @@ header("Location: login.php");
 							<p>This is your own Profile page, where you can edit your information, get FlyBy news, and keep up to date with your posts.
 							Happy Flying!
 							</p>
-							<ul class="actions">
-							<li><a href="update_profile.php" class="button">Edit My Profile</a></li>
-							</ul>
+							<br><br>
+							<ul class="actions" style="margin: 0 0 0 0;"><li><a href="update_profile.php" class="button">Edit My Profile</a></li></ul>
 						</header>
+						<?php if($mp == "update") echo '<br><body>Your Profile has now been Updated!</body>';?>
 					</section>
 				</div>
 				<section class="container">

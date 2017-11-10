@@ -94,9 +94,13 @@ session_start();
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
 		}
-
+		
+		$sql = "SELECT * FROM marketplace"; //Queries must be in string format
+		$result1 = mysqli_query($conn, $sql);
+		$id = mysqli_num_rows($result1);
+		
 		if($itemErr == "" && $imgErr == "" && $desErr == "" && $priErr == ""){
-			$sql = "INSERT INTO marketplace (item, imgsrc, des, price, data, owner) VALUES ('$item', '$img', '$des', '$pri', '$data', '$owner')"; //Queries must be in string format
+			$sql = "INSERT INTO marketplace (id, item, imgsrc, des, price, data, owner) VALUES ('$id','$item', '$img', '$des', '$pri', '$data', '$owner')"; //Queries must be in string format
 			$result = mysqli_query($conn, $sql); //does your query
 			if ($result) { //checks your query
 				echo "New record created successfully";
