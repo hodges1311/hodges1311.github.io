@@ -21,8 +21,7 @@ session_start();
 
 <!-- Banner -->
 
-	<body>
-		<?php
+	<?php
 			require 'vendor/autoload.php';
 			
 			$mp = "";
@@ -216,7 +215,8 @@ session_start();
 				return $data;
 			}
 		?>
-		
+
+	<body>
 		<div id="page-wrapper">
 
 			<!-- Header -->
