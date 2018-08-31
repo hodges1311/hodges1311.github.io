@@ -23,6 +23,8 @@ session_start();
 
 	<body>
 		<?php
+			require 'vendor/autoload.php';
+			
 			$mp = "";
 			if(isset($_SESSION["redirect"]))
 				$mp = $_SESSION["redirect"];
