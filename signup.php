@@ -155,62 +155,7 @@
 				if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
 					$passErr = "Passwords Do Not Match";
 				}
-
-				$servername = "localhost"; //local machine, the port on which the mySQL server runs on
-				$username = "root"; //default is root
-				$serverpassword= ""; //default is none
-				$databasename = "mysql";
-
-				$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-				
-				if ($conn->connect_error) 
-				{
-					die("Connection failed: " . $conn->connect_error);
-				}
-				
-				$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
-				$result = mysqli_query($conn, $check);
-				$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
-				$result2 = mysqli_query($conn, $check2);
-				if(mysqli_num_rows($result) >= 1) {
-					$emailErr = "Email is already in use. Have you Signed up before?";
-				}
-				if(mysqli_num_rows($result2) >=1){
-					$userErr = "Username is already taken.";
-				}
-
-				if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == "")
-				{
-					$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
-					$result = mysqli_query($conn, $sql); //does your query
-					echo "'<script>console.log(\"\")</script>'";
-					if ($result)
-					{ //checks your query
-						echo "New record created successfully";
-						$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
-						$mail->addAddress($email);
-						$mail->Subject  = 'Welcome to FlyBy';
-						$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
-						if(!$mail->send()) 
-						{
-							echo 'Message was not sent.';
-							echo 'Mailer error: ' . $mail->ErrorInfo;
-						} 
-						else 
-						{
-							echo 'Message has been sent.';
-						}
-						$_SESSION["user"] = $user;
-						$_SESSION["name"] = $name;
-						header("Location: success.php");
-					}
-					else 
-					{
-						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-					}
-				}
-				mysqli_close($conn);
-			}	
+			}
 
 			function test_input($data)
 			{
@@ -221,7 +166,6 @@
 			}
 		?>
 		<div id="page-wrapper">
-
 			<!-- Header -->
 				<header id="header">
 					<h1><a href="index.php">FlyBy</h1>
@@ -238,6 +182,7 @@
 						</ul>
 					</nav>
 				</header>
+
 
 
 			<!-- Main -->
