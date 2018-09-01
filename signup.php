@@ -21,6 +21,22 @@
 <!-- Banner -->
 
 	<body>
+		<?php
+			$mp = "";
+			if(isset($_SESSION["redirect"]))
+				$mp = $_SESSION["redirect"];
+			if(isset($_SESSION["user"]))
+				$mp = "signout";
+			session_unset();
+			
+			$mail = new PHPMailer;
+			$mail->IsSMTP();
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = 587;
+			$mail->Username = 'flybycorporate@gmail.com';
+			$mail->Password = 'DummyPassword2';
+			$mail->SMTPAuth = true;
+		?>
 		<div id="page-wrapper">
 			<!-- Header -->
 				<header id="header">
