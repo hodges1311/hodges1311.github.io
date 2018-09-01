@@ -22,6 +22,12 @@
 
 	<body>
 		<?php
+			$mp = "";
+			if(isset($_SESSION["redirect"]))
+				$mp = $_SESSION["redirect"];
+			if(isset($_SESSION["user"]))
+				$mp = "signout";
+
 			$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
 			$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
 
