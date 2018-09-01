@@ -21,198 +21,205 @@
 <!-- Banner -->
 
 	<body>
-	<?php
-	
-	$mp = "";
-	if(isset($_SESSION["redirect"]))
-		$mp = $_SESSION["redirect"];
-	if(isset($_SESSION["user"]))
-		$mp = "signout";
-	session_unset();
-	
-	$mail = new PHPMailer;
-	$mail->IsSMTP();
-	$mail->Host = 'smtp.gmail.com';
-	$mail->Port = 587;
-	$mail->Username = 'flybycorporate@gmail.com';
-	$mail->Password = 'DummyPassword2';
-	$mail->SMTPAuth = true;
-
-	$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
-	$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
-
-	if($_SERVER["REQUEST_METHOD"] == "POST")
-	{
-		if(empty($_POST["name"]))
-		{
-			$nameErr = "Name is Required";
-		}
-		else
-		{
-			$name = test_input($_POST["name"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$name))
-			{
-				$nameErr = "Only letters and white space allowed for Name";
-			}
-		}
-
-		if (empty($_POST["email"]))
-		{
-			$emailErr = "Email is required";
-		}
-		else
-		{
-			$email = test_input($_POST["email"]);
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-			{
-				$emailErr = "Invalid email format";
-			}
-		}
-
-		if(empty($_POST["zip"]))
-		{
-			$zipErr = "Zip-Code is Required";
-		}
-		else
-		{
-			$zip = test_input($_POST["zip"]);
-			if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) != 5)
-			{
-				$zipErr = "Only 5 digit number allowed for Zip-Code";
-			}
-		}
-
-		if(empty($_POST["state"]))
-		{
-			$stateErr = "Choose a State";
-		}
-		else
-		{
-			$state = test_input($_POST["state"]);
-		}
-
-		if(empty($_POST["city"]))
-		{
-			$cityErr = "City is Required";
-		}
-		else
-		{
-			$city = test_input($_POST["city"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$city))
-			{
-				$cityErr = "Only letters and white space allowed for city";
-			}
-		}
-
-		if(empty($_POST["address"]))
-		{
-			$addErr = "Address is Required";
-		}
-		else
-		{
-			$add = test_input($_POST["address"]);
-			if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add))
-			{
-				$addErr = "Only letters, numbers, & white space allowed for address";
-			}
-		}
-
-		if(empty($_POST["username"]))
-		{
-			$userErr = "Username Required";
-		}
-		else
-		{
-			$user = test_input($_POST["username"]);
-			if (!preg_match("/^[a-zA-Z0-9]*$/",$user))
-			{
-				$userErr = "Only letters & number allowed for Username";
-			}
-			if(strlen($user) > 20)
-			{
-				$userErr = "Username can only be 20 Characters Long";
-			}
-		}
+		<?php
 		
-		if(empty($_POST["pass"])) {
-			$passErr = "Password Required";
-		}
-		elseif(strlen($_POST["pass"]) > 72) {
-			$passErr = "Password Cannot be more than 72 Characters";
-		}
-		else {
-			$pass = password_hash($_POST["pass"],PASSWORD_DEFAULT);
-		}
-		if(empty($_POST["passc"])){
-			$passErr = "Password Required";
-		}
-		elseif(strlen($_POST["passc"]) > 72) {
-			$passErr = "Password Cannot be more than 72 Characters";
-		}
-		else{
-			$passc = password_hash($_POST["passc"],PASSWORD_DEFAULT);
-		}
-		if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
-			$passErr = "Passwords Do Not Match";
-		}
-		
-		$servername = "localhost"; //local machine, the port on which the mySQL server runs on
-		$username = "root"; //default is root
-		$serverpassword= ""; //default is none
-		$databasename = "mysql";
+			$mp = "";
+			if(isset($_SESSION["redirect"]))
+				$mp = $_SESSION["redirect"];
+			if(isset($_SESSION["user"]))
+				$mp = "signout";
+			session_unset();
+			
+			$mail = new PHPMailer;
+			$mail->IsSMTP();
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = 587;
+			$mail->Username = 'flybycorporate@gmail.com';
+			$mail->Password = 'DummyPassword2';
+			$mail->SMTPAuth = true;
 
-		$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-		
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		}
-		
-		$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
-		$result = mysqli_query($conn, $check);
-		$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
-		$result2 = mysqli_query($conn, $check2);
-		if(mysqli_num_rows($result) >= 1) {
-			$emailErr = "Email is already in use. Have you Signed up before?";
-		}
-		if(mysqli_num_rows($result2) >=1){
-			$userErr = "Username is already taken.";
-		}
-		
-		if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == ""  && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == ""){
-			$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
-			$result = mysqli_query($conn, $sql); //does your query
-			echo "'<script>console.log(\"\")</script>'";
-			if ($result) { //checks your query
-				echo "New record created successfully";
-				$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
-				$mail->addAddress($email);
-				$mail->Subject  = 'Welcome to FlyBy';
-				$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
-				if(!$mail->send()) {
-					echo 'Message was not sent.';
-					echo 'Mailer error: ' . $mail->ErrorInfo;
-				} 
-				else {
-					echo 'Message has been sent.';
+			$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
+			$name = $email = $user = $add = $city = $zip = $state = $pass = $passc = "";
+
+			if($_SERVER["REQUEST_METHOD"] == "POST")
+			{
+				if(empty($_POST["name"]))
+				{
+					$nameErr = "Name is Required";
 				}
-				$_SESSION["user"] = $user;
-				$_SESSION["name"] = $name;
-				header("Location: success.php");
-			} 
-			else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-		}
-		mysqli_close($conn);
+				else
+				{
+					$name = test_input($_POST["name"]);
+					if (!preg_match("/^[a-zA-Z ]*$/",$name))
+					{
+						$nameErr = "Only letters and white space allowed for Name";
+					}
+				}
 
-	function test_input($data)
-	{
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
-	}
-	?>
+				if (empty($_POST["email"]))
+				{
+					$emailErr = "Email is required";
+				}
+				else
+				{
+					$email = test_input($_POST["email"]);
+					if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+					{
+						$emailErr = "Invalid email format";
+					}
+				}
+
+				if(empty($_POST["zip"]))
+				{
+					$zipErr = "Zip-Code is Required";
+				}
+				else
+				{
+					$zip = test_input($_POST["zip"]);
+					if (!preg_match("/^[0-9]*$/",$zip) || strlen($zip) != 5)
+					{
+						$zipErr = "Only 5 digit number allowed for Zip-Code";
+					}
+				}
+
+				if(empty($_POST["state"]))
+				{
+					$stateErr = "Choose a State";
+				}
+				else
+				{
+					$state = test_input($_POST["state"]);
+				}
+
+								if(empty($_POST["city"]))
+				{
+					$cityErr = "City is Required";
+				}
+				else
+				{
+					$city = test_input($_POST["city"]);
+					if (!preg_match("/^[a-zA-Z ]*$/",$city))
+					{
+						$cityErr = "Only letters and white space allowed for city";
+					}
+				}
+
+				if(empty($_POST["address"]))
+				{
+					$addErr = "Address is Required";
+				}
+				else
+				{
+					$add = test_input($_POST["address"]);
+					if (!preg_match("/^[a-zA-Z0-9 ]*$/",$add))
+					{
+						$addErr = "Only letters, numbers, & white space allowed for address";
+					}
+				}
+				
+				if(empty($_POST["username"]))
+				{
+					$userErr = "Username Required";
+				}
+				else
+				{
+					$user = test_input($_POST["username"]);
+					if (!preg_match("/^[a-zA-Z0-9]*$/",$user))
+					{
+						$userErr = "Only letters & number allowed for Username";
+					}
+					if(strlen($user) > 20)
+					{
+						$userErr = "Username can only be 20 Characters Long";
+					}
+				}
+
+				if(empty($_POST["pass"])) {
+					$passErr = "Password Required";
+				}
+				elseif(strlen($_POST["pass"]) > 72) {
+					$passErr = "Password Cannot be more than 72 Characters";
+				}
+				else {
+					$pass = password_hash($_POST["pass"],PASSWORD_DEFAULT);
+				}
+				if(empty($_POST["passc"])){
+					$passErr = "Password Required";
+				}
+				elseif(strlen($_POST["passc"]) > 72) {
+					$passErr = "Password Cannot be more than 72 Characters";
+				}
+				else{
+					$passc = password_hash($_POST["passc"],PASSWORD_DEFAULT);
+				}
+				if($passErr == "" && !password_verify($_POST["pass"],$passc) && !password_verify($_POST["passc"],$pass)){
+					$passErr = "Passwords Do Not Match";
+				}
+
+				$servername = "localhost"; //local machine, the port on which the mySQL server runs on
+				$username = "root"; //default is root
+				$serverpassword= ""; //default is none
+				$databasename = "mysql";
+
+				$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
+				
+				if ($conn->connect_error) 
+				{
+					die("Connection failed: " . $conn->connect_error);
+				}
+				
+				$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
+				$result = mysqli_query($conn, $check);
+				$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
+				$result2 = mysqli_query($conn, $check2);
+				if(mysqli_num_rows($result) >= 1) {
+					$emailErr = "Email is already in use. Have you Signed up before?";
+				}
+				if(mysqli_num_rows($result2) >=1){
+					$userErr = "Username is already taken.";
+				}
+
+				if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == "")
+				{
+					$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
+					$result = mysqli_query($conn, $sql); //does your query
+					echo "'<script>console.log(\"\")</script>'";
+					if ($result)
+					{ //checks your query
+						echo "New record created successfully";
+						$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
+						$mail->addAddress($email);
+						$mail->Subject  = 'Welcome to FlyBy';
+						$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
+						if(!$mail->send()) 
+						{
+							echo 'Message was not sent.';
+							echo 'Mailer error: ' . $mail->ErrorInfo;
+						} 
+						else 
+						{
+							echo 'Message has been sent.';
+						}
+						$_SESSION["user"] = $user;
+						$_SESSION["name"] = $name;
+						header("Location: success.php");
+					}
+					else 
+					{
+						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					}
+				}
+				mysqli_close($conn);
+			}	
+
+			function test_input($data)
+			{
+				$data = trim($data);
+				$data = stripslashes($data);
+				$data = htmlspecialchars($data);
+				return $data;
+			}
+		?>
 		<div id="page-wrapper">
 
 			<!-- Header -->
