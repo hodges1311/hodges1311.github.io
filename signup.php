@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -23,7 +23,6 @@ session_start();
 	<body>
 	<?php
 	
-
 	$mp = "";
 	if(isset($_SESSION["redirect"]))
 		$mp = $_SESSION["redirect"];
@@ -205,7 +204,6 @@ session_start();
 			}
 		}
 		mysqli_close($conn);
-	}
 
 	function test_input($data)
 	{
