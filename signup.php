@@ -309,7 +309,7 @@
 							<p id="field">*All Fields Required</p>
 							<div class="row uniform">
 								<div class="12u">
-									<ul class="actions align-center">
+									<ul class="actions align-center">>
 										<li><input type="submit" value="Sign Up"></li>
 									</ul>
 								</div>
