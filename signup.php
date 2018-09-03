@@ -19,7 +19,7 @@
 	</head>
 
 <!-- Banner -->
-<!-- Test 1.5 -->
+<!-- Test 1.6 -->
 	<body>
 		<?php
 			use PHPMailer\PHPMailer\PHPMailer;
@@ -160,28 +160,10 @@
 					$passErr = "Passwords Do Not Match";
 				}
 
-				$servername = "localhost"; //local machine, the port on which the mySQL server runs on
-				$username = "root"; //default is root
-				$serverpassword= ""; //default is none
-				$databasename = "mysql";
+				$conn = pg_connect(getenv("DATABASE_URL"));
 
-				$conn = new mysqli($servername, $username, $serverpassword, $databasename); //creates the connection
-				
 				if ($conn->connect_error) 
 				{
-					$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
-					$mail->addAddress($email);
-					$mail->Subject  = 'Welcome to FlyBy';
-					$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
-					if(!$mail->send()) 
-					{
-						echo 'Message was not sent.';
-						echo 'Mailer error: ' . $mail->ErrorInfo;
-					} 
-					else 
-					{
-						echo 'Message has been sent.';
-					}
 					die("Connection failed: " . $conn->connect_error);
 				}
 				
