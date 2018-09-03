@@ -39,7 +39,7 @@
 			$mail->Host = 'smtp.gmail.com';
 			$mail->Port = 587;
 			$mail->Username = 'flybycorporate@gmail.com';
-			$mail->Password = 'DummyPassword2';
+			$mail->Password = 'DummyPassword3';
 			$mail->SMTPAuth = true;
 
 			$nameErr = $emailErr = $userErr = $addErr = $cityErr = $stateErr = $zipErr = $passErr = "";
