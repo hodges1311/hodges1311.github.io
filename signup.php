@@ -167,9 +167,9 @@
 					die("Connection failed: " . $conn->connect_error);
 				}
 				
-				$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
+				$check  ="SELECT * FROM \"siteCustomers\" WHERE email = '{$email}'";
 				$result = pg_query($conn, $check);
-				$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
+				$check2  ="SELECT * FROM \"siteCustomers\" WHERE username = '{$user}'";
 				$result2 = pg_query($conn, $check2);
 				if(pg_num_rows($result) >= 1) {
 					$emailErr = "Email is already in use. Have you Signed up before?";
@@ -180,7 +180,7 @@
 
 				if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == "")
 				{
-					$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
+					$sql = "INSERT INTO \"siteCustomers\" (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
 					$result = pg_query($conn, $sql); //does your query
 					echo "'<script>console.log(\"\")</script>'";
 					if ($result)
