@@ -19,7 +19,7 @@
 	</head>
 
 <!-- Banner -->
-<!-- Test 1.2 -->
+<!-- Test 1.4 -->
 	<body>
 		<?php
 			use PHPMailer\PHPMailer\PHPMailer;
@@ -36,6 +36,7 @@
 
 			$mail = new PHPMailer;
 			$mail->IsSMTP();
+			$mail->SMTPDebug = 2;
 			$mail->Host = 'smtp.gmail.com';
 			$mail->Port = 587;
 			$mail->Username = 'flybycorporate@gmail.com';
@@ -170,18 +171,18 @@
 				if ($conn->connect_error) 
 				{
 					$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
-						$mail->addAddress($email);
-						$mail->Subject  = 'Welcome to FlyBy';
-						$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
-						if(!$mail->send()) 
-						{
-							echo 'Message was not sent.';
-							echo 'Mailer error: ' . $mail->ErrorInfo;
-						} 
-						else 
-						{
-							echo 'Message has been sent.';
-						}
+					$mail->addAddress($email);
+					$mail->Subject  = 'Welcome to FlyBy';
+					$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
+					if(!$mail->send()) 
+					{
+						echo 'Message was not sent.';
+						echo 'Mailer error: ' . $mail->ErrorInfo;
+					} 
+					else 
+					{
+						echo 'Message has been sent.';
+					}
 					die("Connection failed: " . $conn->connect_error);
 				}
 				
