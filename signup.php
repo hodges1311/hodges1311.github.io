@@ -19,11 +19,12 @@
 	</head>
 
 <!-- Banner -->
-<!-- Test 1.1 -->
+<!-- Test 1.2 -->
 	<body>
 		<?php
 			use PHPMailer\PHPMailer\PHPMailer;
 			use PHPMailer\PHPMailer\Exception;
+			require 'vendor/autoload.php';
 
 			$mp = "";
 			if(isset($_SESSION["redirect"]))
