@@ -19,7 +19,7 @@
 	</head>
 
 <!-- Banner -->
-<!-- Test 1.4 -->
+<!-- Test 1.5 -->
 	<body>
 		<?php
 			use PHPMailer\PHPMailer\PHPMailer;
@@ -36,7 +36,6 @@
 
 			$mail = new PHPMailer;
 			$mail->IsSMTP();
-			$mail->SMTPDebug = 2;
 			$mail->Host = 'smtp.gmail.com';
 			$mail->Port = 587;
 			$mail->Username = 'flybycorporate@gmail.com';
