@@ -168,20 +168,20 @@
 				}
 				
 				$check  ="SELECT * FROM `siteCustomers` WHERE `email` = '{$email}'";
-				$result = mysqli_query($conn, $check);
+				$result = pg_query($conn, $check);
 				$check2  ="SELECT * FROM `siteCustomers` WHERE `username` = '{$user}'";
-				$result2 = mysqli_query($conn, $check2);
-				if(mysqli_num_rows($result) >= 1) {
+				$result2 = pg_query($conn, $check2);
+				if(pg_num_rows($result) >= 1) {
 					$emailErr = "Email is already in use. Have you Signed up before?";
 				}
-				if(mysqli_num_rows($result2) >=1){
+				if(pg_num_rows($result2) >=1){
 					$userErr = "Username is already taken.";
 				}
 
 				if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == "")
 				{
 					$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
-					$result = mysqli_query($conn, $sql); //does your query
+					$result = pg_query($conn, $sql); //does your query
 					echo "'<script>console.log(\"\")</script>'";
 					if ($result)
 					{ //checks your query
@@ -205,10 +205,10 @@
 					}
 					else 
 					{
-						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+						echo "Error: " . $sql . "<br>" . pg_result_error($conn);
 					}
 				}
-				mysqli_close($conn);
+				pg_close($conn);
 			}
 
 			function test_input($data)
