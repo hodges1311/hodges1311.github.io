@@ -19,7 +19,7 @@
 	</head>
 
 <!-- Banner -->
-<!-- Test 1.2 -->
+<!-- Test 1.3 -->
 	<body>
 		<?php
 			use PHPMailer\PHPMailer\PHPMailer;
@@ -185,6 +185,19 @@
 
 				if($nameErr == "" && $emailErr == "" && $userErr == "" && $addErr == "" && $cityErr == "" && $stateErr == "" && $zipErr == "" && $passErr == "")
 				{
+					$mail->setFrom('FlyByCorporate@gmail.com', 'FlyBy Incorporated');
+						$mail->addAddress($email);
+						$mail->Subject  = 'Welcome to FlyBy';
+						$mail->Body     = 'Hello, '.$name.'! Your Username is '.$user.'. Welcome to FlyBy. Feel free to explore our vast catalogue of Flying material to help you Conquer the Skies.';
+						if(!$mail->send()) 
+						{
+							echo 'Message was not sent.';
+							echo 'Mailer error: ' . $mail->ErrorInfo;
+						} 
+						else 
+						{
+							echo 'Message has been sent.';
+						}
 					$sql = "INSERT INTO siteCustomers (name,	email,	address,	city,	state,	zipcode,	username, password) VALUES ('$name', '$email', '$add', '$city', '$state', '$zip', '$user', '$pass')"; //Queries must be in string format
 					$result = mysqli_query($conn, $sql); //does your query
 					echo "'<script>console.log(\"\")</script>'";
