@@ -318,6 +318,12 @@
 					</div>
 				</div>
 				<div>
+					<form action="https://test.bitpay.com/checkout" method="post" >
+					  <input type="hidden" name="action" value="checkout" />
+					  <input type="hidden" name="posData" value="" />
+					  <input type="hidden" name="data" value="KJjKuRLzrOReZaTYsjKG9cXmfT8pAhA2jp1PZhtAvRnMBSYQgwgG/2kawz5JDS1fS2vE0o0/zKF6ISbFLe3afIdVePYNHsBpAMGojyMbsxc=" />
+					  <input type="image" src="https://test.bitpay.com/cdn/en_US/bp-btn-pay-currencies.svg" name="submit" style="width:210px;" alt="BitPay, the easy way to pay with bitcoins." >
+					</form>
 				</div>
 
 				<div>
